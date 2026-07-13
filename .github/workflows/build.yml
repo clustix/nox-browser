@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,18 +31,14 @@ jobs:
         run: |
           ./mach bootstrap --application-choice=browser_artifact_mode --no-system-changes
 
-      - name: Configure and Download Artifacts
+      - name: Configure and Install Artifacts
         run: |
-          ./mach configure
-          ./mach artifact install
+          ./mach configure       
+          ./mach artifact install --tree=mozilla-central || ./mach artifact install
 
       - name: Build
         run: |
           ./mach build
-
-      - name: Package browser
-        run: |
-          ./mach package
 
       - name: Package browser
         run: |
