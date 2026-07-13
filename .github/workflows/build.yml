@@ -27,7 +27,7 @@ jobs:
 
       - name: Run mach bootstrap
         run: |
-          ./mach bootstrap --application-choice=browser_artifact_mode --non-interactive
+          echo "1" | ./mach bootstrap --application-choice=firefox_artifact_mode
 
       - name: Configure and Build
         run: |
