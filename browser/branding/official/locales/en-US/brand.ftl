@@ -16,12 +16,12 @@
 ## For further details, consult:
 ## https://mozilla-l10n.github.io/styleguides/mozilla_general/#brands-copyright-and-trademark
 
--brand-shorter-name = Firefox
--brand-short-name = Firefox
--brand-shortcut-name = Firefox
--brand-full-name = Mozilla Firefox
+-brand-shorter-name = Nox
+-brand-short-name = Nox
+-brand-shortcut-name = Nox
+-brand-full-name = Nox Browser
 # This brand name can be used in messages where the product name needs to
 # remain unchanged across different versions (Nightly, Beta, etc.).
--brand-product-name = Firefox
--vendor-short-name = Mozilla
-trademarkInfo = Firefox and the Firefox logos are trademarks of the Mozilla Foundation.
+-brand-product-name = Nox
+-vendor-short-name = Nox
+trademarkInfo = Nox Browser is a trademark of the Clustix developer.

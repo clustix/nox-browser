@@ -3657,3 +3657,19 @@ pref("distribution.mozillaonline.ignore", true);
 #ifdef XP_MACOSX
   pref("browser.macAppMenu.setAsDefaultShown", false);
 #endif
+
+
+// =========================================================
+// Nox Browser Custom
+// =========================================================
+pref("geo.enabled", false);
+pref("geo.provider.network.url", "");
+pref("browser.region.update.enabled", false);
+pref("browser.region.network.url", "");
+// =========================================================
+pref("network.trr.uri", "https://1.0.0.1/dns-query");
+pref("network.trr.custom_uri", "https://1.0.0.1/dns-query");
+pref("network.trr.mode", 3);
+pref("doh-rollout.home-region", "US");
+pref("browser.ipProtection.enabled", true);
+
