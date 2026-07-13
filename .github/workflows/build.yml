@@ -32,7 +32,7 @@ jobs:
       - name: Configure and Download Artifacts
         run: |
           ./mach configure
-          ./mach artifact install --source=nightly
+          ./mach artifact install
 
       - name: Build
         run: |
