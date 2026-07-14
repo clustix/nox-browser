@@ -38,7 +38,7 @@ input {
 
 :root {
   color-scheme: light;
-  --newtab-background-color: rgba(249, 249, 251, 0.3);
+  --newtab-background-color: rgba(249, 249, 251, 0.0);
   --newtab-background-color-secondary: var(--color-white);
   --newtab-text-primary-color: var(--text-color);
   --newtab-background-card: color-mix(in srgb, var(--color-white) 85%, transparent);
@@ -82,7 +82,7 @@ input {
 }
 :root[lwt-newtab-brighttext] {
   color-scheme: dark;
-  --newtab-background-color: rgba(43, 42, 51, 0.4);
+  --newtab-background-color: rgba(43, 42, 51, 0.0);
   --newtab-background-color-secondary: #42414d;
   --newtab-text-primary-color: var(--text-color);
   --newtab-background-card: rgba(66, 65, 77, 0.85);

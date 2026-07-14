@@ -3,36 +3,41 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 /*
- * Nox Browser - Liquid Glass Theme
- * Полупрозрачный интерфейс в стиле "liquid glass/акрил"
+ * Nox Browser - Modern Liquid Glass / Acrylic UI
+ * Полная переработка интерфейса Firefox в современном glass-стиле.
  *
  * Этот файл переопределяет CSS-переменные и добавляет эффекты
- * стекла (backdrop-filter: blur, полупрозрачные фоны, градиенты).
- *
- * Эффект работает в два слоя:
- * 1. Полупрозрачный фон с rgba() — имитирует стекло
- * 2. backdrop-filter: blur() — размывает содержимое под панелью
- *    (работает на Windows с DWM и на macOS с vibrancy)
- * 3. На Linux эффект достигается за счёт полупрозрачных цветов
- *    и градиентов, создающих иллюзию стекла
+ * стекла (backdrop-filter: blur, полупрозрачные фоны, градиенты,
+ * анимации) для всех компонентов интерфейса.
  */
 
+/* =============================================================
+ * 1. CSS-переменные темы — основа для всех компонентов
+ * ============================================================= */
 :root {
-  /* === Основные цвета темы === */
-  --nox-glass-bg-light: rgba(245, 240, 255, 0.35);
-  --nox-glass-bg-dark: rgba(20, 15, 35, 0.45);
-  --nox-glass-blur: 20px;
-  --nox-glass-border-light: rgba(255, 255, 255, 0.15);
-  --nox-glass-border-dark: rgba(255, 255, 255, 0.06);
+  /* --- Прозрачные фоны --- */
+  --nox-glass-bg-light: rgba(245, 240, 255, 0.25);
+  --nox-glass-bg-dark: rgba(20, 15, 35, 0.35);
+  --nox-glass-bg-solid-light: rgba(245, 240, 255, 0.55);
+  --nox-glass-bg-solid-dark: rgba(20, 15, 35, 0.65);
+  --nox-glass-blur: 24px;
+  --nox-glass-blur-heavy: 40px;
+  --nox-glass-border-light: rgba(255, 255, 255, 0.12);
+  --nox-glass-border-dark: rgba(255, 255, 255, 0.05);
   --nox-glass-accent: #7c5cfc;
-  --nox-glass-accent-glow: rgba(124, 92, 252, 0.3);
-  --nox-glass-highlight-light: rgba(255, 255, 255, 0.25);
-  --nox-glass-highlight-dark: rgba(255, 255, 255, 0.08);
-  --nox-glass-shadow: rgba(0, 0, 0, 0.08);
+  --nox-glass-accent-hover: #6a4ae0;
+  --nox-glass-accent-active: #5a3ac8;
+  --nox-glass-accent-glow: rgba(124, 92, 252, 0.25);
+  --nox-glass-highlight-light: rgba(255, 255, 255, 0.2);
+  --nox-glass-highlight-dark: rgba(255, 255, 255, 0.06);
+  --nox-glass-shadow: rgba(0, 0, 0, 0.06);
   --nox-glass-text-light: #1a1a2e;
   --nox-glass-text-dark: #e8e0f0;
+  --nox-glass-radius: 12px;
+  --nox-glass-radius-sm: 8px;
+  --nox-glass-radius-xs: 6px;
 
-  /* === Переопределение системных переменных === */
+  /* --- Базовые переопределения Firefox CSS Variables --- */
   --toolbar-background-color: light-dark(
     var(--nox-glass-bg-light),
     var(--nox-glass-bg-dark)
@@ -42,91 +47,93 @@
     var(--nox-glass-text-dark)
   );
   --toolbox-background-color: light-dark(
-    rgba(235, 230, 250, 0.2),
-    rgba(15, 10, 30, 0.3)
+    rgba(235, 230, 250, 0.15),
+    rgba(15, 10, 30, 0.2)
   );
   --toolbox-text-color: light-dark(
     var(--nox-glass-text-light),
     var(--nox-glass-text-dark)
   );
   --toolbox-background-color-inactive: light-dark(
-    rgba(235, 230, 250, 0.1),
-    rgba(15, 10, 30, 0.15)
+    rgba(235, 230, 250, 0.08),
+    rgba(15, 10, 30, 0.1)
   );
   --toolbox-text-color-inactive: light-dark(
-    rgba(26, 26, 46, 0.6),
-    rgba(232, 224, 240, 0.5)
+    rgba(26, 26, 46, 0.5),
+    rgba(232, 224, 240, 0.4)
   );
 
-  /* === Панели и меню === */
+  /* --- Панели и попапы --- */
   --panel-background: light-dark(
-    rgba(250, 248, 255, 0.55),
-    rgba(25, 20, 45, 0.65)
+    rgba(250, 248, 255, 0.5),
+    rgba(25, 20, 45, 0.6)
   );
   --panel-border-color: light-dark(
     var(--nox-glass-border-light),
     var(--nox-glass-border-dark)
   );
-  --panel-shadow: 0 4px 24px var(--nox-glass-shadow);
+  --panel-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --panel-border-radius: var(--nox-glass-radius);
 
-  /* === Вкладки === */
+  /* --- Вкладки --- */
   --tab-selected-bgcolor: light-dark(
-    rgba(255, 255, 255, 0.5),
-    rgba(255, 255, 255, 0.1)
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.08)
   );
   --tab-hover-bgcolor: light-dark(
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.05)
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.04)
   );
   --tab-loading-fill: var(--nox-glass-accent);
+  --tab-border-radius: var(--nox-glass-radius-sm);
 
-  /* === URL-бар === */
+  /* --- URL-бар --- */
   --urlbar-background-color: light-dark(
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.08)
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.06)
   );
   --urlbar-text-color: light-dark(
     var(--nox-glass-text-light),
     var(--nox-glass-text-dark)
   );
   --urlbar-placeholder-color: light-dark(
-    rgba(26, 26, 46, 0.5),
-    rgba(232, 224, 240, 0.4)
+    rgba(26, 26, 46, 0.4),
+    rgba(232, 224, 240, 0.35)
   );
 
-  /* === Разделители === */
+  /* --- Разделители --- */
   --chrome-content-separator-color: light-dark(
+    rgba(0, 0, 0, 0.04),
+    rgba(255, 255, 255, 0.03)
+  );
+  --toolbarseparator-color: light-dark(
     rgba(0, 0, 0, 0.06),
     rgba(255, 255, 255, 0.04)
   );
-  --toolbarseparator-color: light-dark(
-    rgba(0, 0, 0, 0.08),
-    rgba(255, 255, 255, 0.06)
-  );
 
-  /* === Кнопки === */
+  /* --- Кнопки --- */
   --toolbarbutton-background-color-hover: light-dark(
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0.1)
-  );
-  --toolbarbutton-background-color-active: light-dark(
-    rgba(124, 92, 252, 0.15),
-    rgba(124, 92, 252, 0.25)
-  );
-  --button-background-color: transparent;
-  --button-background-color-hover: light-dark(
     rgba(255, 255, 255, 0.25),
     rgba(255, 255, 255, 0.08)
   );
-  --button-background-color-active: light-dark(
+  --toolbarbutton-background-color-active: light-dark(
     rgba(124, 92, 252, 0.12),
     rgba(124, 92, 252, 0.2)
   );
+  --button-background-color: transparent;
+  --button-background-color-hover: light-dark(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.06)
+  );
+  --button-background-color-active: light-dark(
+    rgba(124, 92, 252, 0.1),
+    rgba(124, 92, 252, 0.18)
+  );
 
-  /* === Сайдбар === */
+  /* --- Сайдбар --- */
   --sidebar-background-color: light-dark(
-    rgba(245, 240, 255, 0.3),
-    rgba(20, 15, 35, 0.4)
+    rgba(245, 240, 255, 0.2),
+    rgba(20, 15, 35, 0.3)
   );
   --sidebar-text-color: light-dark(
     var(--nox-glass-text-light),
@@ -137,115 +144,312 @@
     var(--nox-glass-border-dark)
   );
 
-  /* === Акцентный цвет === */
+  /* --- Акцентные цвета --- */
   --color-accent-primary: var(--nox-glass-accent);
-  --color-accent-primary-hover: #6a4ae0;
-  --color-accent-primary-active: #5a3ac8;
+  --color-accent-primary-hover: var(--nox-glass-accent-hover);
+  --color-accent-primary-active: var(--nox-glass-accent-active);
   --focus-outline-color: var(--nox-glass-accent);
+  --button-primary-bgcolor: var(--nox-glass-accent);
+  --button-primary-hover-bgcolor: var(--nox-glass-accent-hover);
+  --button-primary-active-bgcolor: var(--nox-glass-accent-active);
+
+  /* --- Скроллбары --- */
+  --scrollbar-width: 6px;
+  --scrollbar-color: light-dark(
+    rgba(0, 0, 0, 0.15),
+    rgba(255, 255, 255, 0.1)
+  );
+  --scrollbar-color-hover: light-dark(
+    rgba(0, 0, 0, 0.25),
+    rgba(255, 255, 255, 0.2)
+  );
 }
 
-/* === Эффект стекла на панели инструментов === */
+/* =============================================================
+ * 2. Базовая прозрачность и backdrop-filter для всех панелей
+ * ============================================================= */
+
+/* Главный toolbox — вся chrome-область */
 #navigator-toolbox {
   backdrop-filter: blur(var(--nox-glass-blur));
   -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  background: transparent !important;
+  border-bottom: none !important;
 }
 
-/* === Навигационная панель === */
+/* Навигационная панель */
 #nav-bar {
   backdrop-filter: blur(var(--nox-glass-blur));
   -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  background: var(--toolbar-background-color) !important;
+  border-bottom: 1px solid light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  ) !important;
+  box-shadow: 0 1px 4px var(--nox-glass-shadow);
+}
+
+/* Панель вкладок */
+#TabsToolbar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+/* Меню-бар */
+#toolbar-menubar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  background: transparent !important;
+}
+
+/* Панель закладок */
+#PersonalToolbar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  background: var(--toolbar-background-color) !important;
   border-bottom: 1px solid light-dark(
     var(--nox-glass-border-light),
     var(--nox-glass-border-dark)
   ) !important;
 }
 
-/* === Панель вкладок === */
-#TabsToolbar {
-  backdrop-filter: blur(var(--nox-glass-blur));
-  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+/* Боковая панель */
+#sidebar-container {
+  backdrop-filter: blur(var(--nox-glass-blur-heavy));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur-heavy));
+  background: var(--sidebar-background-color) !important;
+  border-inline-end: 1px solid var(--sidebar-border-color) !important;
 }
 
-/* === Вкладки === */
+#sidebar {
+  background: transparent !important;
+}
+
+/* =============================================================
+ * 3. Вкладки — Modern Floating Tabs с закруглениями
+ * ============================================================= */
+
+/* Базовая вкладка */
 .tabbrowser-tab {
   background: transparent !important;
+  border-radius: var(--nox-glass-radius-sm) !important;
+  overflow: visible !important;
 
   &:hover {
-    background: var(--tab-hover-bgcolor) !important;
+    & > .tab-stack > .tab-background {
+      background: var(--tab-hover-bgcolor) !important;
+      border-radius: var(--nox-glass-radius-sm) !important;
+    }
   }
 
   &[selected] {
-    background: var(--tab-selected-bgcolor) !important;
-    box-shadow: 0 0 12px var(--nox-glass-accent-glow);
+    & > .tab-stack > .tab-background {
+      background: var(--tab-selected-bgcolor) !important;
+      border-radius: var(--nox-glass-radius-sm) !important;
+      box-shadow: 0 0 16px var(--nox-glass-accent-glow);
+    }
   }
 }
 
-/* Исправление прямоугольного обрамления вкладок */
+/* tab-background — полностью убираем стандартный фон */
 .tab-background {
   background: transparent !important;
   border: none !important;
+  border-radius: var(--nox-glass-radius-sm) !important;
   box-shadow: none !important;
+  margin: 0 !important;
+  min-height: unset !important;
+  outline: none !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* tab-content */
 .tab-content {
   background: transparent !important;
+  border-radius: var(--nox-glass-radius-sm) !important;
 }
 
-/* === URL-бар === */
+/* tab-stack */
+.tab-stack {
+  background: transparent !important;
+  border-radius: var(--nox-glass-radius-sm) !important;
+}
+
+/* Ближайшие вкладки — убираем визуальные разделители */
+.tabbrowser-tab:not([pinned])::after,
+.tabbrowser-tab::before {
+  display: none !important;
+}
+
+/* Акцентная линия под активной вкладкой (shimmer animation) */
+.tabbrowser-tab[selected] > .tab-stack::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: var(--tab-inline-padding, 4px);
+  right: var(--tab-inline-padding, 4px);
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--nox-glass-accent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 1px;
+  animation: nox-glass-shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Анимация shimmer для активной вкладки */
+@keyframes nox-glass-shimmer {
+  0% { background-position: -200% center; }
+  50% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* =============================================================
+ * 4. URL-бар — Modern "pill" с размытием
+ * ============================================================= */
+
 #urlbar {
   background: var(--urlbar-background-color) !important;
-  backdrop-filter: blur(10px);
-  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -moz-backdrop-filter: blur(12px);
   border: 1px solid light-dark(
     var(--nox-glass-border-light),
     var(--nox-glass-border-dark)
   ) !important;
+  border-radius: var(--nox-glass-radius) !important;
   box-shadow: 0 2px 8px var(--nox-glass-shadow) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus-within {
     border-color: var(--nox-glass-accent) !important;
-    box-shadow: 0 0 0 2px var(--nox-glass-accent-glow) !important;
+    box-shadow: 0 0 0 3px var(--nox-glass-accent-glow) !important;
+  }
+
+  &[open] {
+    border-radius: var(--nox-glass-radius) var(--nox-glass-radius) 0 0 !important;
   }
 }
 
-/* Исправление прямоугольного обрамления urlbar */
+/* urlbar-background — скрываем стандартный подложный элемент */
 .urlbar-background {
   background: transparent !important;
   border: none !important;
+  border-radius: var(--nox-glass-radius) !important;
   box-shadow: none !important;
+  outline: none !important;
 }
 
+/* urlbar-input-container */
 .urlbar-input-container {
   background: transparent !important;
   border: none !important;
+  border-radius: var(--nox-glass-radius) !important;
 }
 
-/* Убираем непрозрачные фоны внутри urlbar */
-#urlbar .search-one-offs,
-#urlbar .search-panel-one-offs,
-#urlbar .urlbarView {
+/* urlbar-input — само поле ввода */
+#urlbar-input {
   background: transparent !important;
+  color: var(--urlbar-text-color) !important;
 }
 
-/* === Выпадающие панели (меню, попапы) === */
-panel,
-menupopup {
+/* Плейсхолдер */
+#urlbar-input::placeholder {
+  color: var(--urlbar-placeholder-color) !important;
+  opacity: 1;
+}
+
+/* Результаты поиска */
+.urlbarView {
   background: var(--panel-background) !important;
-  backdrop-filter: blur(30px);
-  -moz-backdrop-filter: blur(30px);
+  backdrop-filter: blur(var(--nox-glass-blur-heavy));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur-heavy));
   border: 1px solid var(--panel-border-color) !important;
+  border-radius: 0 0 var(--nox-glass-radius) var(--nox-glass-radius) !important;
   box-shadow: var(--panel-shadow) !important;
 }
 
-/* === Боковая панель === */
-#sidebar-container {
-  backdrop-filter: blur(var(--nox-glass-blur));
-  -moz-backdrop-filter: blur(var(--nox-glass-blur));
-  border-inline-end: 1px solid var(--sidebar-border-color) !important;
+.urlbarView-row {
+  &[selected] {
+    background: var(--toolbarbutton-background-color-hover) !important;
+  }
+
+  &:hover {
+    background: var(--toolbarbutton-background-color-hover) !important;
+  }
 }
 
-/* === Кнопки панели инструментов === */
-.toolbarbutton-1 {
+/* one-offs (кнопки поиска внизу) */
+#urlbar .search-one-offs,
+.search-panel-one-offs {
+  background: transparent !important;
+  border-top: 1px solid var(--toolbarseparator-color) !important;
+}
+
+/* =============================================================
+ * 5. Выпадающие панели, меню, попапы
+ * ============================================================= */
+
+panel,
+menupopup,
+.popup-notification-panel {
+  --panel-background: light-dark(
+    rgba(250, 248, 255, 0.55),
+    rgba(25, 20, 45, 0.65)
+  ) !important;
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur-heavy)) !important;
+  -moz-backdrop-filter: blur(var(--nox-glass-blur-heavy)) !important;
+  border: 1px solid var(--panel-border-color) !important;
+  border-radius: var(--nox-glass-radius) !important;
+  box-shadow: var(--panel-shadow) !important;
+}
+
+panel[type="arrow"] {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur-heavy)) !important;
+  -moz-backdrop-filter: blur(var(--nox-glass-blur-heavy)) !important;
+}
+
+.panel-arrowcontent {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 4px !important;
+}
+
+.panel-arrow {
+  display: none !important;
+}
+
+/* Все пункты меню */
+menupopup > menuitem,
+menupopup > menu {
+  border-radius: var(--nox-glass-radius-xs) !important;
+
+  &:hover {
+    background: var(--toolbarbutton-background-color-hover) !important;
+  }
+
+  &[_moz-menuactive] {
+    background: var(--toolbarbutton-background-color-hover) !important;
+  }
+}
+
+/* =============================================================
+ * 6. Кнопки панелей инструментов — минималистичные
+ * ============================================================= */
+
+.toolbarbutton-1,
+.toolbarbutton-combined {
+  border-radius: var(--nox-glass-radius-xs) !important;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+
   &:hover {
     background: var(--toolbarbutton-background-color-hover) !important;
     box-shadow: 0 0 8px var(--nox-glass-accent-glow);
@@ -255,75 +459,172 @@ menupopup {
   &[open] {
     background: var(--toolbarbutton-background-color-active) !important;
   }
-}
 
-/* === Меню-бар === */
-#toolbar-menubar {
-  backdrop-filter: blur(var(--nox-glass-blur));
-  -moz-backdrop-filter: blur(var(--nox-glass-blur));
-}
-
-/* === Панель закладок === */
-#PersonalToolbar {
-  backdrop-filter: blur(var(--nox-glass-blur));
-  -moz-backdrop-filter: blur(var(--nox-glass-blur));
-  border-bottom: 1px solid light-dark(
-    var(--nox-glass-border-light),
-    var(--nox-glass-border-dark)
-  ) !important;
-}
-
-/* === Анимации === */
-@keyframes nox-glass-shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
+  &[checked] {
+    background: rgba(124, 92, 252, 0.15) !important;
   }
 }
 
-.tabbrowser-tab[selected] {
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--nox-glass-accent),
-      transparent
-    );
-    background-size: 200% 100%;
-    animation: nox-glass-shimmer 3s ease-in-out infinite;
+/* Кнопки внутри urlbar */
+#urlbar .urlbar-input-container > toolbarbutton {
+  border-radius: var(--nox-glass-radius-xs) !important;
+
+  &:hover {
+    background: var(--toolbarbutton-background-color-hover) !important;
   }
 }
 
-/* === Стили для inactive окна === */
+/* =============================================================
+ * 7. Панель закладок
+ * ============================================================= */
+
+#PersonalToolbar toolbarbutton {
+  border-radius: var(--nox-glass-radius-xs) !important;
+
+  &:hover {
+    background: var(--toolbarbutton-background-color-hover) !important;
+  }
+}
+
+/* =============================================================
+ * 8. Внутренние элементы about:newtab — прозрачность
+ * ============================================================= */
+
+/* Фон body для about:newtab — переопределяем через @import
+   в activity-stream.css, но здесь на всякий случай дублируем */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background: transparent !important;
+  }
+}
+
+/* =============================================================
+ * 9. Скроллбары — тонкие, полупрозрачные
+ * ============================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+*:hover {
+  scrollbar-color: var(--scrollbar-color-hover) transparent;
+}
+
+/* =============================================================
+ * 10. Разделители
+ * ============================================================= */
+
+.toolbarseparator {
+  background: var(--toolbarseparator-color) !important;
+}
+
+#navigator-toolbox::after {
+  display: none !important;
+}
+
+/* =============================================================
+ * 11. Индикатор загрузки (loading fill)
+ * ============================================================= */
+
+.tab-loading-burst[bursting]::before {
+  background-color: var(--tab-loading-fill) !important;
+  box-shadow: 0 0 6px var(--nox-glass-accent-glow);
+}
+
+/* =============================================================
+ * 12. Состояние неактивного окна
+ * ============================================================= */
+
 :root:-moz-window-inactive {
   --toolbar-background-color: light-dark(
-    rgba(245, 240, 255, 0.2),
-    rgba(20, 15, 35, 0.25)
+    rgba(245, 240, 255, 0.15),
+    rgba(20, 15, 35, 0.2)
   );
   --panel-background: light-dark(
-    rgba(250, 248, 255, 0.3),
-    rgba(25, 20, 45, 0.4)
+    rgba(250, 248, 255, 0.25),
+    rgba(25, 20, 45, 0.35)
+  );
+  --urlbar-background-color: light-dark(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.04)
   );
 }
 
-/* === Стили для тёмной темы (дополнительные акценты) === */
+/* =============================================================
+ * 13. Анимации и эффекты
+ * ============================================================= */
+
+/* Shimmer для линии под активной вкладкой (определён выше в секции 3) */
+
+/* Glow-анимация при наведении на кнопки */
+@keyframes nox-glass-button-glow {
+  0% { box-shadow: 0 0 4px var(--nox-glass-accent-glow); }
+  50% { box-shadow: 0 0 10px var(--nox-glass-accent-glow); }
+  100% { box-shadow: 0 0 4px var(--nox-glass-accent-glow); }
+}
+
+.toolbarbutton-1:hover {
+  animation: nox-glass-button-glow 2s ease-in-out infinite;
+}
+
+/* =============================================================
+ * 14. Поддержка тёмной и светлой темы
+ * ============================================================= */
+
 @media (prefers-color-scheme: dark) {
   :root:not([lwtheme]) {
+    --nox-glass-accent-glow: rgba(124, 92, 252, 0.18);
+    --nox-glass-shadow: rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([lwtheme]) {
+    --nox-glass-shadow: rgba(0, 0, 0, 0.05);
     --nox-glass-accent-glow: rgba(124, 92, 252, 0.2);
   }
 }
 
-/* === Стили для светлой темы === */
-@media (prefers-color-scheme: light) {
-  :root:not([lwtheme]) {
-    --nox-glass-shadow: rgba(0, 0, 0, 0.06);
-  }
+/* =============================================================
+ * 15. Дополнительные фиксы для стандартных Firefox-селекторов
+ * ============================================================= */
+
+/* Фикс: убираем белый фон под уведомлениями */
+.notificationbox-stack {
+  background: transparent !important;
+}
+
+/* Фикс: фон панели поиска (Ctrl+F) */
+#FindToolbar {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur)) !important;
+  -moz-backdrop-filter: blur(var(--nox-glass-blur)) !important;
+  border: none !important;
+}
+
+/* Фикс: статус-бар */
+#statuspanel {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur)) !important;
+  -moz-backdrop-filter: blur(var(--nox-glass-blur)) !important;
+  border: 1px solid var(--panel-border-color) !important;
+  border-radius: var(--nox-glass-radius-xs) !important;
+}
+
+/* Фикс: элементы автозаполнения */
+#formautofill-notification {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur-heavy)) !important;
+}
+
+/* Фикс: инфобар */
+.infobar {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(var(--nox-glass-blur)) !important;
+}
+
+/* Фикс: страница about:welcome */
+[global-window] {
+  background: transparent !important;
 }
