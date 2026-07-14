@@ -3,5 +3,4 @@ ac_add_options --enable-artifact-builds
 ac_add_options --disable-tests
 ac_add_options --disable-debug
 
-ac_add_options --with-app-name=Nox
-ac_add_options --with-app-basename=Nox
+ac_add_options --enable-branding=browser/branding/official
