@@ -3672,4 +3672,5 @@ pref("network.trr.custom_uri", "https://1.0.0.1/dns-query");
 pref("network.trr.mode", 3);
 pref("doh-rollout.home-region", "US");
 pref("browser.ipProtection.enabled", true);
-
+// =========================================================
+pref("intl.locale.requested", "");
