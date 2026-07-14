@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 50 # Берём только 50 коммитов: залетает за 3 секунды и даёт mach найти родительский хэш!
+          fetch-depth: 50
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -42,7 +42,9 @@ jobs:
 
       - name: Package browser
         run: |
-          ./mach package
+          git clone --depth 1 https://github.com/mozilla-l10n/firefox-l10n l10n
+          LOCALES=$(ls -d l10n/* | xargs -n1 basename | tr '\n' ' ')
+          ./mach package-multi-locale --locales $LOCALES --l10n-base l10n
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
