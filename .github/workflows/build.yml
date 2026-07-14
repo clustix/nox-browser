@@ -44,7 +44,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/mozilla-l10n/firefox-l10n l10n
           LOCALES=$(ls -d l10n/* | xargs -n1 basename | tr '\n' ' ')
-          ./mach package-multi-locale --locales $LOCALES --l10n-base l10n
+          L10N_BASEDIR=$PWD/l10n ./mach package-multi-locale --locales $LOCALES
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4

@@ -180,6 +180,17 @@
   }
 }
 
+/* Исправление прямоугольного обрамления вкладок */
+.tab-background {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tab-content {
+  background: transparent !important;
+}
+
 /* === URL-бар === */
 #urlbar {
   background: var(--urlbar-background-color) !important;
@@ -195,6 +206,25 @@
     border-color: var(--nox-glass-accent) !important;
     box-shadow: 0 0 0 2px var(--nox-glass-accent-glow) !important;
   }
+}
+
+/* Исправление прямоугольного обрамления urlbar */
+.urlbar-background {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.urlbar-input-container {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Убираем непрозрачные фоны внутри urlbar */
+#urlbar .search-one-offs,
+#urlbar .search-panel-one-offs,
+#urlbar .urlbarView {
+  background: transparent !important;
 }
 
 /* === Выпадающие панели (меню, попапы) === */
