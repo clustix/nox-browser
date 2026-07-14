@@ -13,7 +13,9 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # Быстрый checkout (без полной истории)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 50 # Берём только 50 коммитов: залетает за 3 секунды и даёт mach найти родительский хэш!
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,7 +34,7 @@ jobs:
       - name: Configure and Download Artifacts
         run: |
           ./mach configure
-          ./mach artifact install --tree=mozilla-central
+          ./mach artifact install --tree=mozilla-central || ./mach artifact install
 
       - name: Build
         run: |
