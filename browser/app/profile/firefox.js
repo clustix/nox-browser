@@ -1246,7 +1246,7 @@ pref("browser.bookmarks.openInTabClosesMenu", true);
 // the bookmarks toolbar as a default.
 pref("browser.bookmarks.defaultLocation", "toolbar");
 
-pref("browser.tabs.allow_transparent_browser", false);
+pref("browser.tabs.allow_transparent_browser", true);
 
 // Scripts & Windows prefs
 pref("dom.disable_open_during_load",              true);
@@ -3673,4 +3673,8 @@ pref("network.trr.mode", 3);
 pref("doh-rollout.home-region", "US");
 pref("browser.ipProtection.enabled", true);
 // =========================================================
+// Nox Browser: Liquid Glass theme prefs
+// Enable window transparency effects for glass/acrylic style
+pref("widget.windows.window-transparency", true);
+// Use system locale by default instead of en-US
 pref("intl.locale.requested", "");

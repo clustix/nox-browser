@@ -1,0 +1,299 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/*
+ * Nox Browser - Liquid Glass Theme
+ * Полупрозрачный интерфейс в стиле "liquid glass/акрил"
+ *
+ * Этот файл переопределяет CSS-переменные и добавляет эффекты
+ * стекла (backdrop-filter: blur, полупрозрачные фоны, градиенты).
+ *
+ * Эффект работает в два слоя:
+ * 1. Полупрозрачный фон с rgba() — имитирует стекло
+ * 2. backdrop-filter: blur() — размывает содержимое под панелью
+ *    (работает на Windows с DWM и на macOS с vibrancy)
+ * 3. На Linux эффект достигается за счёт полупрозрачных цветов
+ *    и градиентов, создающих иллюзию стекла
+ */
+
+:root {
+  /* === Основные цвета темы === */
+  --nox-glass-bg-light: rgba(245, 240, 255, 0.35);
+  --nox-glass-bg-dark: rgba(20, 15, 35, 0.45);
+  --nox-glass-blur: 20px;
+  --nox-glass-border-light: rgba(255, 255, 255, 0.15);
+  --nox-glass-border-dark: rgba(255, 255, 255, 0.06);
+  --nox-glass-accent: #7c5cfc;
+  --nox-glass-accent-glow: rgba(124, 92, 252, 0.3);
+  --nox-glass-highlight-light: rgba(255, 255, 255, 0.25);
+  --nox-glass-highlight-dark: rgba(255, 255, 255, 0.08);
+  --nox-glass-shadow: rgba(0, 0, 0, 0.08);
+  --nox-glass-text-light: #1a1a2e;
+  --nox-glass-text-dark: #e8e0f0;
+
+  /* === Переопределение системных переменных === */
+  --toolbar-background-color: light-dark(
+    var(--nox-glass-bg-light),
+    var(--nox-glass-bg-dark)
+  );
+  --toolbar-text-color: light-dark(
+    var(--nox-glass-text-light),
+    var(--nox-glass-text-dark)
+  );
+  --toolbox-background-color: light-dark(
+    rgba(235, 230, 250, 0.2),
+    rgba(15, 10, 30, 0.3)
+  );
+  --toolbox-text-color: light-dark(
+    var(--nox-glass-text-light),
+    var(--nox-glass-text-dark)
+  );
+  --toolbox-background-color-inactive: light-dark(
+    rgba(235, 230, 250, 0.1),
+    rgba(15, 10, 30, 0.15)
+  );
+  --toolbox-text-color-inactive: light-dark(
+    rgba(26, 26, 46, 0.6),
+    rgba(232, 224, 240, 0.5)
+  );
+
+  /* === Панели и меню === */
+  --panel-background: light-dark(
+    rgba(250, 248, 255, 0.55),
+    rgba(25, 20, 45, 0.65)
+  );
+  --panel-border-color: light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  );
+  --panel-shadow: 0 4px 24px var(--nox-glass-shadow);
+
+  /* === Вкладки === */
+  --tab-selected-bgcolor: light-dark(
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.1)
+  );
+  --tab-hover-bgcolor: light-dark(
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.05)
+  );
+  --tab-loading-fill: var(--nox-glass-accent);
+
+  /* === URL-бар === */
+  --urlbar-background-color: light-dark(
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.08)
+  );
+  --urlbar-text-color: light-dark(
+    var(--nox-glass-text-light),
+    var(--nox-glass-text-dark)
+  );
+  --urlbar-placeholder-color: light-dark(
+    rgba(26, 26, 46, 0.5),
+    rgba(232, 224, 240, 0.4)
+  );
+
+  /* === Разделители === */
+  --chrome-content-separator-color: light-dark(
+    rgba(0, 0, 0, 0.06),
+    rgba(255, 255, 255, 0.04)
+  );
+  --toolbarseparator-color: light-dark(
+    rgba(0, 0, 0, 0.08),
+    rgba(255, 255, 255, 0.06)
+  );
+
+  /* === Кнопки === */
+  --toolbarbutton-background-color-hover: light-dark(
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  --toolbarbutton-background-color-active: light-dark(
+    rgba(124, 92, 252, 0.15),
+    rgba(124, 92, 252, 0.25)
+  );
+  --button-background-color: transparent;
+  --button-background-color-hover: light-dark(
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.08)
+  );
+  --button-background-color-active: light-dark(
+    rgba(124, 92, 252, 0.12),
+    rgba(124, 92, 252, 0.2)
+  );
+
+  /* === Сайдбар === */
+  --sidebar-background-color: light-dark(
+    rgba(245, 240, 255, 0.3),
+    rgba(20, 15, 35, 0.4)
+  );
+  --sidebar-text-color: light-dark(
+    var(--nox-glass-text-light),
+    var(--nox-glass-text-dark)
+  );
+  --sidebar-border-color: light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  );
+
+  /* === Акцентный цвет === */
+  --color-accent-primary: var(--nox-glass-accent);
+  --color-accent-primary-hover: #6a4ae0;
+  --color-accent-primary-active: #5a3ac8;
+  --focus-outline-color: var(--nox-glass-accent);
+}
+
+/* === Эффект стекла на панели инструментов === */
+#navigator-toolbox {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+}
+
+/* === Навигационная панель === */
+#nav-bar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  border-bottom: 1px solid light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  ) !important;
+}
+
+/* === Панель вкладок === */
+#TabsToolbar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+}
+
+/* === Вкладки === */
+.tabbrowser-tab {
+  background: transparent !important;
+
+  &:hover {
+    background: var(--tab-hover-bgcolor) !important;
+  }
+
+  &[selected] {
+    background: var(--tab-selected-bgcolor) !important;
+    box-shadow: 0 0 12px var(--nox-glass-accent-glow);
+  }
+}
+
+/* === URL-бар === */
+#urlbar {
+  background: var(--urlbar-background-color) !important;
+  backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  border: 1px solid light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  ) !important;
+  box-shadow: 0 2px 8px var(--nox-glass-shadow) !important;
+
+  &:focus-within {
+    border-color: var(--nox-glass-accent) !important;
+    box-shadow: 0 0 0 2px var(--nox-glass-accent-glow) !important;
+  }
+}
+
+/* === Выпадающие панели (меню, попапы) === */
+panel,
+menupopup {
+  background: var(--panel-background) !important;
+  backdrop-filter: blur(30px);
+  -moz-backdrop-filter: blur(30px);
+  border: 1px solid var(--panel-border-color) !important;
+  box-shadow: var(--panel-shadow) !important;
+}
+
+/* === Боковая панель === */
+#sidebar-container {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  border-inline-end: 1px solid var(--sidebar-border-color) !important;
+}
+
+/* === Кнопки панели инструментов === */
+.toolbarbutton-1 {
+  &:hover {
+    background: var(--toolbarbutton-background-color-hover) !important;
+    box-shadow: 0 0 8px var(--nox-glass-accent-glow);
+  }
+
+  &:hover:active,
+  &[open] {
+    background: var(--toolbarbutton-background-color-active) !important;
+  }
+}
+
+/* === Меню-бар === */
+#toolbar-menubar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+}
+
+/* === Панель закладок === */
+#PersonalToolbar {
+  backdrop-filter: blur(var(--nox-glass-blur));
+  -moz-backdrop-filter: blur(var(--nox-glass-blur));
+  border-bottom: 1px solid light-dark(
+    var(--nox-glass-border-light),
+    var(--nox-glass-border-dark)
+  ) !important;
+}
+
+/* === Анимации === */
+@keyframes nox-glass-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.tabbrowser-tab[selected] {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--nox-glass-accent),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: nox-glass-shimmer 3s ease-in-out infinite;
+  }
+}
+
+/* === Стили для inactive окна === */
+:root:-moz-window-inactive {
+  --toolbar-background-color: light-dark(
+    rgba(245, 240, 255, 0.2),
+    rgba(20, 15, 35, 0.25)
+  );
+  --panel-background: light-dark(
+    rgba(250, 248, 255, 0.3),
+    rgba(25, 20, 45, 0.4)
+  );
+}
+
+/* === Стили для тёмной темы (дополнительные акценты) === */
+@media (prefers-color-scheme: dark) {
+  :root:not([lwtheme]) {
+    --nox-glass-accent-glow: rgba(124, 92, 252, 0.2);
+  }
+}
+
+/* === Стили для светлой темы === */
+@media (prefers-color-scheme: light) {
+  :root:not([lwtheme]) {
+    --nox-glass-shadow: rgba(0, 0, 0, 0.06);
+  }
+}
