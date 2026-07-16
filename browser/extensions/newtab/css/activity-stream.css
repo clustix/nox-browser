@@ -18297,3 +18297,254 @@ hr {
 .nova-enabled .ds-card .img-wrapper {
   color: var(--newtab-primary-action-background);
 }
+
+/* Nox Browser - Modern UI with Liquid Glass Effects */
+
+:root {
+  --card-glass-blur: 20px;
+  --card-glass-bg: rgba(255, 255, 255, 0.25);
+  --card-glass-border: rgba(255, 255, 255, 0.3);
+  --card-glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-glass-bg: rgba(0, 0, 0, 0.25);
+    --card-glass-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Modern glass effect for cards */
+.ds-card,
+.card,
+.section-card {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--card-glass-shadow) !important;
+  backdrop-filter: blur(var(--card-glass-blur)) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(var(--card-glass-blur)) saturate(1.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ds-card:hover,
+.card:hover,
+.section-card:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ds-card:hover,
+  .card:hover,
+  .section-card:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+}
+
+/* Modern search wrapper with glass effect */
+.search-wrapper {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(18px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.3) !important;
+  box-shadow: var(--card-glass-shadow) !important;
+}
+
+/* Modern context menu with glass effect */
+.context-menu {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(16px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Modern customize menu with glass effect */
+.customize-menu {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(20px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.nova-enabled .customize-menu {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  box-shadow: 0 0 14px 0 var(--box-shadow-color-accent-primary-primary), 0 8px 32px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Modern wallpaper input with glass effect */
+.wallpaper-input {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.wallpaper-input:hover {
+  filter: brightness(1.1) !important;
+  transform: scale(1.02);
+}
+
+.wallpaper-input:checked,
+.wallpaper-input.selected {
+  box-shadow: inset 0 0 0 3px var(--modern-accent-primary, #007aff), 0 4px 16px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Modern buttons in new tab */
+.personalize-button,
+.open-customization-button {
+  background: var(--card-glass-bg) !important;
+  border: 1px solid var(--card-glass-border) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(14px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.3) !important;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.personalize-button:hover,
+.open-customization-button:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .personalize-button:hover,
+  .open-customization-button:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+  }
+}
+
+/* Nox Browser - Modern UI with Liquid Glass Effects for New Tab */
+
+:root {
+  --newtab-glass-blur: 20px;
+  --newtab-glass-saturation: 1.4;
+  --newtab-glass-brightness: 1.05;
+  --newtab-glass-bg: rgba(255, 255, 255, 0.25);
+  --newtab-glass-border: rgba(255, 255, 255, 0.3);
+  --newtab-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --newtab-glass-bg: rgba(0, 0, 0, 0.25);
+    --newtab-glass-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.nox-glass-card {
+  background-color: var(--newtab-glass-bg);
+  border: 1px solid var(--newtab-glass-border);
+  border-radius: 16px;
+  backdrop-filter: blur(var(--newtab-glass-blur)) saturate(var(--newtab-glass-saturation)) brightness(var(--newtab-glass-brightness));
+  -webkit-backdrop-filter: blur(var(--newtab-glass-blur)) saturate(var(--newtab-glass-saturation)) brightness(var(--newtab-glass-brightness));
+  box-shadow: var(--newtab-glass-shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nox-glass-card:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .nox-glass-card:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.nox-glass-search-container {
+  background-color: var(--newtab-glass-bg);
+  border: 1px solid var(--newtab-glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(24px) saturate(1.5) brightness(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) brightness(1.1);
+  box-shadow: var(--newtab-glass-shadow);
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.nox-glass-search-container:focus-within {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--modern-accent-primary, #007aff);
+}
+
+.nox-glass-button {
+  background-color: var(--newtab-glass-bg);
+  border: 1px solid var(--newtab-glass-border);
+  border-radius: 12px;
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  transition: all 0.2s ease;
+}
+
+.nox-glass-button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.05);
+}
+
+.nox-glass-button:active {
+  background-color: rgba(255, 255, 255, 0.45);
+  transform: scale(0.98);
+}
+
+.nox-section-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-block-end: 16px;
+  padding-block-start: 8px;
+  position: relative;
+}
+
+.nox-section-header::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: -8px;
+  width: 40px;
+  height: 3px;
+  background: var(--modern-accent-primary, #007aff);
+  border-radius: 2px;
+}
+
+.nox-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-block: 24px 0;
+}
+
+.nox-card {
+  background-color: var(--newtab-glass-bg);
+  border: 1px solid var(--newtab-glass-border);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(var(--newtab-glass-blur)) saturate(var(--newtab-glass-saturation));
+  -webkit-backdrop-filter: blur(var(--newtab-glass-blur)) saturate(var(--newtab-glass-saturation));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nox-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.nox-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-block-end: 8px;
+}
+
+.nox-card-description {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--newtab-text-primary-color) 70%, transparent);
+  line-height: 1.5;
+}

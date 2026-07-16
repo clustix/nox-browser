@@ -870,3 +870,130 @@ toolbar[keyNav]:not([collapsed], [customizing]) toolbartabstop,
     display: none;
   }
 }
+
+/* Nox Browser - Modern UI with Liquid Glass Effects */
+
+:root {
+  --toolbarbutton-glass-blur: 12px;
+  --toolbarbutton-glass-saturation: 1.5;
+  --toolbarbutton-glass-brightness: 1.05;
+  --toolbarbutton-glass-bg: rgba(255, 255, 255, 0.15);
+  --toolbarbutton-glass-bg-hover: rgba(255, 255, 255, 0.25);
+  --toolbarbutton-glass-bg-active: rgba(255, 255, 255, 0.35);
+  --toolbarbutton-glass-border: rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --toolbarbutton-glass-bg: rgba(255, 255, 255, 0.1);
+    --toolbarbutton-glass-bg-hover: rgba(255, 255, 255, 0.15);
+    --toolbarbutton-glass-bg-active: rgba(255, 255, 255, 0.25);
+    --toolbarbutton-glass-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Modern glass effect for toolbar buttons */
+toolbar .toolbarbutton-1:not(#smartwindow-ask-button-inner) {
+  --toolbarbutton-background-color-hover: var(--toolbarbutton-glass-bg-hover);
+  --toolbarbutton-background-color-active: var(--toolbarbutton-glass-bg-active);
+  --toolbarbutton-outline-color-hover: var(--toolbarbutton-glass-border);
+  --toolbarbutton-outline-color-active: var(--toolbarbutton-glass-border);
+}
+
+/* Glass effect for main toolbar buttons */
+#nav-bar toolbar .toolbarbutton-1 {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nav-bar toolbar .toolbarbutton-1 > .toolbarbutton-icon,
+#nav-bar toolbar .toolbarbutton-1 > .toolbarbutton-text,
+#nav-bar toolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+  border-radius: 10px;
+  backdrop-filter: blur(var(--toolbarbutton-glass-blur)) saturate(var(--toolbarbutton-glass-saturation)) brightness(var(--toolbarbutton-glass-brightness));
+  -webkit-backdrop-filter: blur(var(--toolbarbutton-glass-blur)) saturate(var(--toolbarbutton-glass-saturation)) brightness(var(--toolbarbutton-glass-brightness));
+}
+
+#nav-bar toolbar .toolbarbutton-1:not([disabled]):hover > :is(.toolbarbutton-icon, .toolbarbutton-text, .toolbarbutton-badge-stack) {
+  background-color: var(--toolbarbutton-glass-bg-hover);
+  border: 1px solid var(--toolbarbutton-glass-border);
+}
+
+#nav-bar toolbar .toolbarbutton-1:not([disabled]):is(:hover:active, [open], [checked]) > :is(.toolbarbutton-icon, .toolbarbutton-text, .toolbarbutton-badge-stack) {
+  background-color: var(--toolbarbutton-glass-bg-active);
+  border: 1px solid var(--toolbarbutton-glass-border);
+}
+
+/* Modern tab styling with glass effect */
+#tabbrowser-tabs {
+  --tab-glass-blur: 16px;
+  --tab-glass-bg: rgba(255, 255, 255, 0.2);
+  --tab-glass-border: rgba(255, 255, 255, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  #tabbrowser-tabs {
+    --tab-glass-bg: rgba(0, 0, 0, 0.2);
+    --tab-glass-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.tabbrowser-tab {
+  transition: all 0.2s ease;
+  backdrop-filter: blur(var(--tab-glass-blur)) saturate(1.3);
+  -webkit-backdrop-filter: blur(var(--tab-glass-blur)) saturate(1.3);
+}
+
+.tabbrowser-tab:not([selected]) {
+  background-color: var(--tab-glass-bg);
+  border: 1px solid var(--tab-glass-border);
+  border-radius: 10px 10px 0 0;
+  margin-inline: 2px 0;
+}
+
+.tabbrowser-tab[selected] {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--tab-glass-border);
+  border-radius: 10px 10px 0 0;
+  backdrop-filter: blur(calc(var(--tab-glass-blur) + 4px)) saturate(1.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tabbrowser-tab[selected] {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Modern URL bar with glass effect */
+#urlbar-input-box {
+  --urlbar-glass-blur: 14px;
+  --urlbar-glass-bg: rgba(255, 255, 255, 0.25);
+  --urlbar-glass-border: rgba(255, 255, 255, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  #urlbar-input-box {
+    --urlbar-glass-bg: rgba(0, 0, 0, 0.25);
+    --urlbar-glass-border: rgba(255, 255, 255, 0.2);
+  }
+}
+
+#urlbar-input-box {
+  background-color: var(--urlbar-glass-bg) !important;
+  border: 1px solid var(--urlbar-glass-border) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(var(--urlbar-glass-blur)) saturate(1.4);
+  -webkit-backdrop-filter: blur(var(--urlbar-glass-blur)) saturate(1.4);
+  transition: all 0.2s ease;
+}
+
+#urlbar-input-box:focus-within {
+  background-color: rgba(255, 255, 255, 0.35) !important;
+  border-color: var(--modern-accent-primary, #007aff) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #urlbar-input-box:focus-within {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+}
+

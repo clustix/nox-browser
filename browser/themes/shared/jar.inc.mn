@@ -21,6 +21,7 @@
   skin/classic/browser/browser-colors.css                      (../shared/browser-colors.css)
   skin/classic/browser/browser-shared.css                      (../shared/browser-shared.css)
   skin/classic/browser/nox-glass.css                           (../shared/nox-glass.css)
+  skin/classic/browser/nox-welcome.css                         (../shared/nox-welcome.css)
   skin/classic/browser/formautofill-notification.css           (../shared/formautofill-notification.css)
   skin/classic/browser/identity-credential-notification.css    (../shared/identity-credential-notification.css)
   skin/classic/browser/menupanel.css                           (../shared/menupanel.css)

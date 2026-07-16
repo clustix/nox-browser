@@ -5,9 +5,6 @@
 @import url("chrome://global/skin/design-system/toolbar.css");
 
 @layer tokens-foundation {
-  /* These tokens are declared inside of tokens-foundation layer so that the
-   * tokens-browser-theme layer can override them with design-system colors
-   * on platforms where the native theme is not active (e.g. macOS). */
   :root {
     &:where([customtitlebar]) {
       --toolbox-background-color: ActiveCaption;
@@ -52,11 +49,6 @@
   }
 }
 
-/**
- * We intentionally do not use the custom colors on linux or macOS with system
- * theme enabled, instead choosing to fall back to system colors and
- * transparencies in order to look more native.
- */
 @media not ((forced-colors) or (-moz-native-theme)) {
   :root:not([lwtheme]) {
     &:where([customtitlebar]) {
@@ -70,5 +62,36 @@
     @media -moz-pref("browser.nova.enabled") {
       --chrome-content-separator-color: light-dark(rgb(201, 192, 227), rgb(16, 17, 24));
     }
+  }
+}
+
+/* Nox Browser - Modern UI Liquid Glass Colors */
+@media not (forced-colors) {
+  :root {
+    --glass-bg-light: rgba(255, 255, 255, 0.25);
+    --glass-bg-dark: rgba(0, 0, 0, 0.25);
+    --glass-bg-hover-light: rgba(255, 255, 255, 0.35);
+    --glass-bg-hover-dark: rgba(255, 255, 255, 0.20);
+    --glass-bg-active-light: rgba(255, 255, 255, 0.40);
+    --glass-bg-active-dark: rgba(255, 255, 255, 0.25);
+    
+    --modern-accent-primary: light-dark(#007aff, #0a84ff);
+    --modern-accent-hover: light-dark(#0062cc, #0066dd);
+    --modern-accent-active: light-dark(#004080, #0044aa);
+    
+    --glass-border-light: rgba(255, 255, 255, 0.25);
+    --glass-border-dark: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --toolbox-background-color: color-mix(in srgb, var(--glass-bg-light) 80%, var(--toolbar-background-color));
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --toolbox-background-color: color-mix(in srgb, var(--glass-bg-dark) 80%, var(--toolbar-background-color));
   }
 }
