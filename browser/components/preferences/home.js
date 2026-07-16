@@ -640,6 +640,13 @@ var gHomePane = {
     }
   },
 
+  openNoxVisualSettingsDialog() {
+    gSubDialog.open(
+      "chrome://browser/content/preferences/dialogs/nox-visual-settings.xhtml",
+      { features: "resizable=no, modal=yes" }
+    );
+  },
+
   init() {
     // The redesign renders the home pane via setting-pane elements;
     // the legacy XUL-based init must not run alongside it.
@@ -659,6 +666,12 @@ var gHomePane = {
     document
       .getElementById("restoreDefaultHomePageBtn")
       .addEventListener("command", this.restoreDefaultPrefsForHome.bind(this));
+
+    // Nox Visual Settings button
+    const noxSettingsBtn = document.getElementById("noxOpenVisualSettingsBtn");
+    if (noxSettingsBtn) {
+      noxSettingsBtn.addEventListener("command", this.openNoxVisualSettingsDialog.bind(this));
+    }
 
     // Setup the add-on options for the new tab section before registering the
     // listener.

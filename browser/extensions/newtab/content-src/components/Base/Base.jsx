@@ -134,6 +134,7 @@ export class BaseContent extends React.PureComponent {
     this.toggleWidgetsManagementPanel =
       this.toggleWidgetsManagementPanel.bind(this);
     this.openWidgetsPanel = this.openWidgetsPanel.bind(this);
+    this.openNoxVisualSettings = this.openNoxVisualSettings.bind(this);
     this.attachSearchSentinel = this.attachSearchSentinel.bind(this);
     this.onSearchSentinelIntersect = this.onSearchSentinelIntersect.bind(this);
     this.searchStickyObserver = null;
@@ -550,6 +551,14 @@ export class BaseContent extends React.PureComponent {
     this.props.dispatch(ac.UserEvent({ event: "OPEN_NEWTAB_PREFS" }));
   }
 
+  openNoxVisualSettings() {
+    const dialog = window.open(
+      "chrome://browser/content/preferences/dialogs/nox-visual-settings.xhtml",
+      "NoxVisualSettings",
+      "width=450,height=500,modal,centerscreen"
+    );
+  }
+
   openCustomizationMenu() {
     this.props.dispatch({ type: at.SHOW_PERSONALIZE });
     this.props.dispatch(ac.UserEvent({ event: "SHOW_PERSONALIZE" }));
@@ -775,6 +784,14 @@ export class BaseContent extends React.PureComponent {
         showSectionsMgmtPanel: false,
       });
     }
+  }
+
+  openNoxVisualSettings() {
+    window.openDialog(
+      "chrome://browser/content/preferences/dialogs/nox-visual-settings.xhtml",
+      "NoxVisualSettings",
+      "centerscreen,chrome,dialog,modal,resizable=no"
+    );
   }
 
   shouldDisplayTopicSelectionModal() {
@@ -1341,14 +1358,23 @@ export class BaseContent extends React.PureComponent {
                   <Notifications dispatch={this.props.dispatch} />
                 </ErrorBoundary>
               )}
-            </aside>
-            {/* Only show the modal on currently visible pages (not preloaded) */}
-            {mayShowTopicSelection && pocketEnabled && (
-              <TopicSelection supportUrl={supportUrl} />
-            )}
-          </div>
-          {/* Floating menu for customize menu toggle */}
-          <menu className="personalizeButtonWrapper">
+             </aside>
+             {/* Nox Visual Settings button - bottom left */}
+             <button
+               className="nox-settings-button"
+               onClick={this.openNoxVisualSettings}
+               data-l10n-id="nox-settings-button-tooltip"
+               title="Nox Visual Settings"
+             >
+               <span className="nox-settings-icon">⚙</span>
+             </button>
+             {/* Only show the modal on currently visible pages (not preloaded) */}
+             {mayShowTopicSelection && pocketEnabled && (
+               <TopicSelection supportUrl={supportUrl} />
+             )}
+           </div>
+           {/* Floating menu for customize menu toggle */}
+           <menu className="personalizeButtonWrapper">
             <CustomizeMenu
               onClose={this.closeCustomizationMenu}
               onOpen={this.openCustomizationMenu}

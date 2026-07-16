@@ -1712,3 +1712,191 @@ setting-pane[onsearchpane] {
     grid-template-columns: 1fr;
   }
 }
+
+/* Nox Visual Settings Dialog */
+.nox-visual-settings-dialog {
+  min-width: 480px;
+  min-height: 520px;
+}
+
+.nox-settings-container {
+  padding: var(--space-large);
+}
+
+.nox-settings-section {
+  margin-bottom: var(--space-medium);
+}
+
+.nox-settings-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-medium);
+}
+
+.nox-accent-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+
+.nox-accent-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nox-accent-option:hover {
+  transform: scale(1.1);
+}
+
+.nox-accent-option.selected {
+  border-color: var(--modern-accent-primary, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
+}
+
+.nox-accent-blue-bg { background: linear-gradient(135deg, #007aff, #00d0ff); }
+.nox-accent-purple-bg { background: linear-gradient(135deg, #5856d6, #a560ff); }
+.nox-accent-pink-bg { background: linear-gradient(135deg, #ff2d55, #ff6b9d); }
+.nox-accent-red-bg { background: linear-gradient(135deg, #ff3b30, #ff6b6b); }
+.nox-accent-orange-bg { background: linear-gradient(135deg, #ff9500, #ffb340); }
+.nox-accent-yellow-bg { background: linear-gradient(135deg, #ffcc00, #ffeb3b); }
+.nox-accent-green-bg { background: linear-gradient(135deg, #34c759, #69f0ae); }
+.nox-accent-teal-bg { background: linear-gradient(135deg, #5ac8fa, #00e5ff); }
+.nox-accent-indigo-bg { background: linear-gradient(135deg, #6a7bff, #8c94ff); }
+.nox-accent-gold-bg { background: linear-gradient(135deg, #ffd700, #ffeb3b); }
+.nox-accent-silver-bg { background: linear-gradient(135deg, #c7c7cc, #e5e5ea); }
+.nox-accent-graphite-bg { background: linear-gradient(135deg, #8e8e93, #aeaeb2); }
+
+.nox-glass-intensity-selector {
+  display: flex;
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+
+.nox-glass-option {
+  flex: 1;
+  padding: var(--space-medium);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--glass-background-light, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--glass-border-light, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.nox-glass-option:hover {
+  background-color: var(--glass-background-hover-light, rgba(255, 255, 255, 0.25));
+}
+
+.nox-glass-option.selected {
+  border-color: var(--modern-accent-primary, #007aff);
+  background-color: var(--glass-background-active-light, rgba(255, 255, 255, 0.35));
+}
+
+@media (prefers-color-scheme: dark) {
+  .nox-glass-option {
+    background-color: var(--glass-background-dark, rgba(0, 0, 0, 0.15));
+  }
+  .nox-glass-option:hover {
+    background-color: var(--glass-background-hover-dark, rgba(255, 255, 255, 0.2));
+  }
+}
+
+/* Nox Visual Settings Dialog */
+.nox-visual-settings-dialog {
+  min-width: 480px;
+  min-height: 520px;
+}
+
+.nox-settings-container {
+  padding: var(--space-large);
+}
+
+.nox-settings-section {
+  margin-bottom: var(--space-medium);
+}
+
+.nox-settings-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-medium);
+}
+
+.nox-accent-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+
+.nox-accent-option {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nox-accent-option:hover {
+  transform: scale(1.1);
+}
+
+.nox-accent-option.selected {
+  border-color: var(--modern-accent-primary, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3);
+}
+
+.nox-accent-blue-bg { background: linear-gradient(135deg, #007aff, #00d0ff); }
+.nox-accent-purple-bg { background: linear-gradient(135deg, #5856d6, #a560ff); }
+.nox-accent-pink-bg { background: linear-gradient(135deg, #ff2d55, #ff6b9d); }
+.nox-accent-red-bg { background: linear-gradient(135deg, #ff3b30, #ff6b6b); }
+.nox-accent-orange-bg { background: linear-gradient(135deg, #ff9500, #ffb340); }
+.nox-accent-yellow-bg { background: linear-gradient(135deg, #ffcc00, #ffeb3b); }
+.nox-accent-green-bg { background: linear-gradient(135deg, #34c759, #69f0ae); }
+.nox-accent-teal-bg { background: linear-gradient(135deg, #5ac8fa, #00e5ff); }
+.nox-accent-indigo-bg { background: linear-gradient(135deg, #6a7bff, #8c94ff); }
+.nox-accent-gold-bg { background: linear-gradient(135deg, #ffd700, #ffeb3b); }
+.nox-accent-silver-bg { background: linear-gradient(135deg, #c7c7cc, #e5e5ea); }
+.nox-accent-graphite-bg { background: linear-gradient(135deg, #8e8e93, #aeaeb2); }
+
+.nox-glass-intensity-selector {
+  display: flex;
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+
+.nox-glass-option {
+  flex: 1;
+  padding: var(--space-medium);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--glass-background-light, rgba(255, 255, 255, 0.15));
+  border: 1px solid var(--glass-border-light, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.nox-glass-option:hover {
+  background-color: var(--glass-background-hover-light, rgba(255, 255, 255, 0.25));
+}
+
+.nox-glass-option.selected {
+  border-color: var(--modern-accent-primary, #007aff);
+  background-color: var(--glass-background-active-light, rgba(255, 255, 255, 0.35));
+}
+
+@media (prefers-color-scheme: dark) {
+  .nox-glass-option {
+    background-color: var(--glass-background-dark, rgba(0, 0, 0, 0.15));
+  }
+  .nox-glass-option:hover {
+    background-color: var(--glass-background-hover-dark, rgba(255, 255, 255, 0.2));
+  }
+}

@@ -1,0 +1,68 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title data-l10n-id="nox-visual-settings-title">Nox Visual Settings</title>
+  <link rel="stylesheet" href="chrome://browser/content/preferences/dialogs/nox-visual-settings.css">
+  <script src="chrome://browser/content/preferences/dialogs/nox-visual-settings.js"/>
+</head>
+<body>
+  <div id="nox-visual-settings-container">
+    <h1 data-l10n-id="nox-visual-settings-title">Nox Visual Settings</h1>
+    
+    <div class="nox-settings-section">
+      <h2 data-l10n-id="visual-settings-accent-title">Accent Color</h2>
+      <div class="nox-accent-selector" id="nox-accent-selector">
+        <button class="nox-accent-option nox-accent-blue" data-accent="blue" data-l10n-id="visual-settings-accent-blue" title="Blue"></button>
+        <button class="nox-accent-option nox-accent-purple" data-accent="purple" data-l10n-id="visual-settings-accent-purple" title="Purple"></button>
+        <button class="nox-accent-option nox-accent-pink" data-accent="pink" data-l10n-id="visual-settings-accent-pink" title="Pink"></button>
+        <button class="nox-accent-option nox-accent-red" data-accent="red" data-l10n-id="visual-settings-accent-red" title="Red"></button>
+        <button class="nox-accent-option nox-accent-orange" data-accent="orange" data-l10n-id="visual-settings-accent-orange" title="Orange"></button>
+        <button class="nox-accent-option nox-accent-yellow" data-accent="yellow" data-l10n-id="visual-settings-accent-yellow" title="Yellow"></button>
+        <button class="nox-accent-option nox-accent-green" data-accent="green" data-l10n-id="visual-settings-accent-green" title="Green"></button>
+        <button class="nox-accent-option nox-accent-teal" data-accent="teal" data-l10n-id="visual-settings-accent-teal" title="Teal"></button>
+        <button class="nox-accent-option nox-accent-indigo" data-accent="indigo" data-l10n-id="visual-settings-accent-indigo" title="Indigo"></button>
+        <button class="nox-accent-option nox-accent-gold" data-accent="gold" data-l10n-id="visual-settings-accent-gold" title="Gold"></button>
+        <button class="nox-accent-option nox-accent-silver" data-accent="silver" data-l10n-id="visual-settings-accent-silver" title="Silver"></button>
+        <button class="nox-accent-option nox-accent-graphite" data-accent="graphite" data-l10n-id="visual-settings-accent-graphite" title="Graphite"></button>
+      </div>
+    </div>
+
+    <div class="nox-settings-section">
+      <h2 data-l10n-id="visual-settings-transparency-title">Transparency</h2>
+      <div class="nox-transparency-slider">
+        <label for="nox-transparency" data-l10n-id="visual-settings-transparency-value">Transparency Level</label>
+        <input type="range" id="nox-transparency" min="0" max="100" value="50">
+        <span id="nox-transparency-value">50%</span>
+      </div>
+    </div>
+
+    <div class="nox-settings-section">
+      <h2 data-l10n-id="visual-settings-glass-title">Glass Effect Intensity</h2>
+      <div class="nox-glass-intensity-selector">
+        <button class="nox-glass-intensity-option" data-intensity="low">
+          <span data-l10n-id="visual-settings-glass-low">Low</span>
+          <small data-l10n-id="visual-settings-glass-low-desc">Subtle transparency</small>
+        </button>
+        <button class="nox-glass-intensity-option" data-intensity="medium">
+          <span data-l10n-id="visual-settings-glass-medium">Medium</span>
+          <small data-l10n-id="visual-settings-glass-medium-desc">Balanced effect</small>
+        </button>
+        <button class="nox-glass-intensity-option" data-intensity="high">
+          <span data-l10n-id="visual-settings-glass-high">High</span>
+          <small data-l10n-id="visual-settings-glass-high-desc">Strong transparency</small>
+        </button>
+      </div>
+    </div>
+
+    <div class="nox-dialog-buttons">
+      <button id="nox-settings-cancel" data-l10n-id="nox-settings-cancel">Cancel</button>
+      <button id="nox-settings-save" data-l10n-id="nox-settings-save">Save</button>
+    </div>
+  </div>
+</body>
+</html>

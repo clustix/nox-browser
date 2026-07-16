@@ -92,10 +92,10 @@
   </hbox>
 </groupbox>
 <groupbox id="homeContentsGroup"
-          data-category="paneHome"
-          data-subcategory="contents"
-          data-srd-groupid="home"
-          hidden="true">
+           data-category="paneHome"
+           data-subcategory="contents"
+           data-srd-groupid="home"
+           hidden="true">
   <label><html:h2 data-l10n-id="home-prefs-content-header2" /></label>
   <description class="description-deemphasized" data-l10n-id="home-prefs-content-description2" />
 
@@ -113,6 +113,24 @@
   </html:moz-box-item>
 
   <vbox id="highlights" />
+</groupbox>
+
+<groupbox id="noxVisualSettingsGroup"
+           data-category="paneHome"
+           data-subcategory="nox-visual"
+           data-srd-groupid="nox-visual"
+           hidden="true">
+  <label><html:h2 data-l10n-id="nox-visual-settings-title" /></label>
+  <description class="description-deemphasized" data-l10n-id="nox-visual-settings-description" />
+
+  <hbox align="center" data-subcategory="nox-accent">
+    <label data-l10n-id="nox-visual-accent-label" flex="1" />
+    <button id="noxOpenVisualSettingsBtn"
+            is="highlightable-button"
+            data-l10n-id="nox-open-settings-button">
+      <html:span class="nox-accent-preview" />
+    </button>
+  </hbox>
 </groupbox>
 
 </html:template>

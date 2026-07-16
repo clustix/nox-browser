@@ -997,3 +997,67 @@ toolbar .toolbarbutton-1:not(#smartwindow-ask-button-inner) {
   }
 }
 
+
+/* Nox Modern UI - Glass Effect Buttons */
+toolbarbutton:not(#back-button):not(#forward-button):not(#home-button):not(.bookmark-item) {
+  border-radius: var(--toolbarbutton-border-radius, 8px) !important;
+  transition: all 0.2s ease !important;
+}
+
+toolbarbutton:not(#back-button):not(#forward-button):not(#home-button):not(.bookmark-item):hover {
+  background-color: var(--toolbarbutton-hover-bg, rgba(255, 255, 255, 0.1)) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+toolbarbutton:not(#back-button):not(#forward-button):not(#home-button):not(.bookmark-item):active {
+  transform: scale(0.95) !important;
+}
+
+/* Nox accent color support */
+toolbarbutton.nox-accent-blue {
+  --toolbarbutton-icon-fill: #007aff !important;
+}
+
+toolbarbutton.nox-accent-purple {
+  --toolbarbutton-icon-fill: #5856d6 !important;
+}
+
+toolbarbutton.nox-accent-pink {
+  --toolbarbutton-icon-fill: #ff2d55 !important;
+}
+
+toolbarbutton.nox-accent-red {
+  --toolbarbutton-icon-fill: #ff3b30 !important;
+}
+
+toolbarbutton.nox-accent-orange {
+  --toolbarbutton-icon-fill: #ff9500 !important;
+}
+
+toolbarbutton.nox-accent-yellow {
+  --toolbarbutton-icon-fill: #ffcc00 !important;
+}
+
+toolbarbutton.nox-accent-green {
+  --toolbarbutton-icon-fill: #34c759 !important;
+}
+
+toolbarbutton.nox-accent-teal {
+  --toolbarbutton-icon-fill: #5ac8fa !important;
+}
+
+toolbarbutton.nox-accent-indigo {
+  --toolbarbutton-icon-fill: #6a7bff !important;
+}
+
+toolbarbutton.nox-accent-gold {
+  --toolbarbutton-icon-fill: #ffd700 !important;
+}
+
+toolbarbutton.nox-accent-silver {
+  --toolbarbutton-icon-fill: #c7c7cc !important;
+}
+
+toolbarbutton.nox-accent-graphite {
+  --toolbarbutton-icon-fill: #8e8e93 !important;
+}

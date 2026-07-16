@@ -397,3 +397,57 @@ findbar {
     transition: none !important;
   }
 }
+
+/* Nox New Tab Page Glass Effects */
+.nox-settings-button {
+  position: fixed;
+  inset-inline-start: var(--space-large);
+  inset-block-end: var(--space-large);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--glass-background-light, rgba(255, 255, 255, 0.25));
+  border: 1px solid var(--glass-border-light, rgba(255, 255, 255, 0.3));
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nox-settings-button:hover {
+  background-color: var(--glass-background-hover-light, rgba(255, 255, 255, 0.35));
+  transform: scale(1.05);
+}
+
+.nox-settings-button:active {
+  background-color: var(--glass-background-active-light, rgba(255, 255, 255, 0.45));
+  transform: scale(0.98);
+}
+
+@media (prefers-color-scheme: dark) {
+  .nox-settings-button {
+    background-color: var(--glass-background-dark, rgba(0, 0, 0, 0.25));
+  }
+  .nox-settings-button:hover {
+    background-color: var(--glass-background-hover-dark, rgba(255, 255, 255, 0.2));
+  }
+}
+
+/* Nox accent color classes for dynamic theming */
+.nox-accent-blue { --modern-accent-primary: #007aff; }
+.nox-accent-purple { --modern-accent-primary: #5856d6; }
+.nox-accent-pink { --modern-accent-primary: #ff2d55; }
+.nox-accent-red { --modern-accent-primary: #ff3b30; }
+.nox-accent-orange { --modern-accent-primary: #ff9500; }
+.nox-accent-yellow { --modern-accent-primary: #ffcc00; }
+.nox-accent-green { --modern-accent-primary: #34c759; }
+.nox-accent-teal { --modern-accent-primary: #5ac8fa; }
+.nox-accent-indigo { --modern-accent-primary: #6a7bff; }
+.nox-accent-gold { --modern-accent-primary: #ffd700; }
+.nox-accent-silver { --modern-accent-primary: #c7c7cc; }
+.nox-accent-graphite { --modern-accent-primary: #8e8e93; }
