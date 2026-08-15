@@ -12,17 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Maximize build disk space
-        uses: easimon/maximize-build-space@master
-        with:
-          root-reserve-mb: 8192
-          temp-reserve-mb: 2048
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -33,46 +22,27 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install System Dependencies
+      - name: Install System Dependencies & Toolchain
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             build-essential curl git mercurial libgtk-3-dev libdbus-glib-1-dev \
-            libpulse-dev libasound2-dev libx11-xcb-dev libxt-dev \
-            clang lld llvm yasm nasm m4 nodejs sccache
+            clang lld llvm cbindgen yasm nasm m4 nodejs
 
-      - name: Set up Rust
+      - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Set up sccache (Compiler Cache)
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/sccache
-          key: sccache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            sccache-${{ runner.os }}-
-
-      - name: Generate mozconfig for Fast Release Build
+      - name: Run mach bootstrap
         run: |
-          cat << 'EOF' > mozconfig
-          mk_add_options AUTOCLOBBER=1
-          ac_add_options --enable-application=browser
-          ac_add_options --enable-optimize
-          ac_add_options --disable-debug
-          ac_add_options --disable-tests
-          ac_add_options --with-ccache=sccache
-          EOF
+          ./mach bootstrap --application-choice=browser --no-system-changes
+
+      - name: Configure
+        run: |
+          ./mach configure
 
       - name: Build
-        env:
-          SCCACHE_DIR: /home/runner/.cache/sccache
-          SCCACHE_CACHE_SIZE: 10G
-          MOZ_AUTOMATION: "1"
-          AUTOCLOBBER: "1"
         run: |
-          sccache --start-server
           ./mach build
-          sccache --show-stats
 
       - name: Package browser
         run: |
@@ -82,9 +52,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nox-browser-linux-x86_64
-          path: |
-            obj-*/dist/nox-*.tar.*
-            obj-*/dist/firefox-*.tar.*
-            obj-*/dist/*.tar.bz2
-            obj-*/dist/*.tar.xz
-          if-no-files-found: warn
+          path: obj-*/dist/*.tar.*
