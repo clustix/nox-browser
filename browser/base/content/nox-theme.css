@@ -1,0 +1,24 @@
+:root {
+  --nox-bg-base: rgba(12, 12, 12, 0.70);
+  --nox-bg-hover: rgba(255, 255, 255, 0.08);
+  --nox-bg-active: rgba(255, 255, 255, 0.12);
+  --nox-border-glass: rgba(255, 255, 255, 0.15);
+
+  --nox-glow-color: #ffffff;
+  --nox-glow-intensity: 12px;
+  --nox-glow-opacity: 0.6;
+
+  --nox-radius-main: 10px;
+  --nox-radius-sm: 6px;
+  --nox-blur: 24px;
+}
+
+#main-window {
+  background: transparent !important;
+}
+
+#navigator-toolbox {
+  background: var(--nox-bg-base) !important;
+  backdrop-filter: blur(var(--nox-blur)) saturate(120%) !important;
+  border-bottom: 1px solid var(--nox-border-glass) !important;
+}

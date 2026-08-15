@@ -3685,3 +3685,7 @@ pref("nox.browser.transparency", 50);
 pref("nox.browser.glassIntensity", "medium");
 pref("nox.browser.animationsEnabled", true);
 pref("nox.browser.roundedCorners", true);
+pref("layout.css.backdrop-filter.enabled", true);
+pref("widget.wayland.opaque-region.enabled", false);
+pref("nox.theme.glow.color", "#ffffff");
+pref("nox.theme.glow.intensity", "12px");

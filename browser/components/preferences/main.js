@@ -681,9 +681,42 @@ var gMainPane = {
     // Listen for window unload so we can remove our preference observers.
     window.addEventListener("unload", this);
 
+    this.initNoxGlow();
+
     // Notify observers that the UI is now ready
     Services.obs.notifyObservers(window, "main-pane-loaded");
     this.setInitialized();
+  },
+
+initNoxGlow() {
+    const colorPicker = document.getElementById("noxGlowColorPicker");
+    const rangeInput = document.getElementById("noxGlowRange");
+    const rangeValue = document.getElementById("noxGlowRangeValue");
+
+    if (!colorPicker || !rangeInput) {
+      return;
+    }
+
+    const currentColor = Services.prefs.getStringPref("nox.theme.glow.color", "#ffffff");
+    const currentIntensity = Services.prefs.getStringPref("nox.theme.glow.intensity", "12px");
+
+    colorPicker.value = currentColor;
+    rangeInput.value = parseInt(currentIntensity, 10) || 12;
+    if (rangeValue) {
+      rangeValue.textContent = currentIntensity;
+    }
+
+    colorPicker.addEventListener("input", (e) => {
+      Services.prefs.setStringPref("nox.theme.glow.color", e.target.value);
+    });
+
+    rangeInput.addEventListener("input", (e) => {
+      const val = `${e.target.value}px`;
+      if (rangeValue) {
+        rangeValue.textContent = val;
+      }
+      Services.prefs.setStringPref("nox.theme.glow.intensity", val);
+    });
   },
 
   preInit() {

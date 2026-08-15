@@ -6,6 +6,7 @@
 
 <script src="chrome://browser/content/preferences/main.js"/>
 <script src="chrome://browser/content/preferences/translations.js"/>
+<script src="chrome://browser/content/nox-settings.js"/>
 
 #ifdef MOZ_UPDATER
   <script src="chrome://browser/content/aboutDialog-appUpdater.js"/>
@@ -48,6 +49,22 @@
 
 <!-- Website appearance -->
 <html:setting-group groupid="appearance" data-category="paneGeneral" data-srd-migrated="" hidden="true"></html:setting-group>
+
+<!-- Nox UI Customization -->
+<groupbox id="noxGlowGroup" data-category="paneGeneral">
+  <label><html:h2>Кастомизация Nox UI</html:h2></label>
+
+  <hbox align="center" class="setting-row" style="margin-block: 8px;">
+    <label flex="1" control="noxGlowColorPicker">Цвет акцентного свечения</label>
+    <html:input type="color" id="noxGlowColorPicker" value="#ffffff"/>
+  </hbox>
+
+  <hbox align="center" class="setting-row" style="margin-block: 8px;">
+    <label flex="1" control="noxGlowRange">Радиус свечения</label>
+    <html:input type="range" id="noxGlowRange" min="0" max="40" value="12"/>
+    <html:span id="noxGlowRangeValue" style="margin-inline-start: 8px; min-width: 30px;">12px</html:span>
+  </hbox>
+</groupbox>
 
 <!-- Zoom -->
 <html:setting-group id="zoomGroup" groupid="zoom" data-category="paneGeneral" hidden="true" data-srd-migrated="" />

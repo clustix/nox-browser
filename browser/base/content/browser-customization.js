@@ -179,3 +179,34 @@ var AutoHideMenubar = {
     this._node.removeAttribute("inactive");
   },
 };
+
+var NoxGlowWindowUpdater = {
+  init() {
+    this.applyGlow();
+    Services.prefs.addObserver("nox.theme.glow.", this);
+    window.addEventListener(
+      "unload",
+      () => {
+        Services.prefs.removeObserver("nox.theme.glow.", this);
+      },
+      { once: true }
+    );
+  },
+
+  observe(subject, topic, data) {
+    if (topic === "nsPref:changed") {
+      this.applyGlow();
+    }
+  },
+
+  applyGlow() {
+    const color = Services.prefs.getStringPref("nox.theme.glow.color", "#ffffff");
+    const intensity = Services.prefs.getStringPref("nox.theme.glow.intensity", "12px");
+    const root = document.documentElement;
+
+    root.style.setProperty("--nox-glow-color", color);
+    root.style.setProperty("--nox-glow-intensity", intensity);
+  },
+};
+
+window.addEventListener("DOMContentLoaded", () => NoxGlowWindowUpdater.init(), { once: true });
