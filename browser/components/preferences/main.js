@@ -707,7 +707,8 @@ initNoxGlow() {
     const attachControls = () => {
       const group =
         document.querySelector('setting-group[groupid="noxGlow"]') ||
-        document.getElementById("generalCategory")?.parentElement;
+        document.getElementById("template-paneAppearance")?.content?.querySelector('setting-group[groupid="noxGlow"]') ||
+        document.querySelector('[data-category="paneAppearance"]');
 
       if (!group || document.getElementById("noxGlowControlsContainer")) {
         return false;
@@ -716,7 +717,7 @@ initNoxGlow() {
       const container = document.createElement("div");
       container.id = "noxGlowControlsContainer";
       container.style.cssText =
-        "margin-block: 16px; padding: 14px; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);";
+        "margin-block: 16px; padding: 16px; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);";
 
       const currentColor = Services.prefs.getStringPref(
         "nox.theme.glow.color",
@@ -728,16 +729,16 @@ initNoxGlow() {
       );
 
       container.innerHTML = `
-        <h2 style="font-size: 1.2em; font-weight: 600; margin-bottom: 12px;">Кастомизация свечения Nox UI</h2>
+        <h2 style="font-size: 1.15em; font-weight: 600; margin-bottom: 12px; color: var(--in-content-text-color, #fff);">Nox Glow Customization</h2>
         <div style="display: flex; align-items: center; justify-content: space-between; margin-block: 8px;">
-          <label for="noxGlowColorPicker" style="font-size: 13px;">Цвет акцентного свечения</label>
+          <label for="noxGlowColorPicker" style="font-size: 13px; color: var(--in-content-text-color, #fff);">Glow Color</label>
           <input type="color" id="noxGlowColorPicker" value="${currentColor}" style="cursor: pointer; border: none; background: transparent; width: 44px; height: 32px;"/>
         </div>
         <div style="display: flex; align-items: center; justify-content: space-between; margin-block: 8px;">
-          <label for="noxGlowRange" style="font-size: 13px;">Радиус свечения</label>
+          <label for="noxGlowRange" style="font-size: 13px; color: var(--in-content-text-color, #fff);">Glow Radius</label>
           <div style="display: flex; align-items: center; gap: 10px;">
             <input type="range" id="noxGlowRange" min="0" max="40" value="${parseInt(currentIntensity, 10) || 12}" style="cursor: pointer;"/>
-            <span id="noxGlowRangeValue" style="min-width: 35px; font-variant-numeric: tabular-nums;">${currentIntensity}</span>
+            <span id="noxGlowRangeValue" style="min-width: 35px; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--in-content-text-color, #fff);">${currentIntensity}</span>
           </div>
         </div>
       `;
@@ -767,7 +768,7 @@ initNoxGlow() {
           clearInterval(interval);
         }
       }, 100);
-      setTimeout(() => clearInterval(interval), 3000);
+      setTimeout(() => clearInterval(interval), 4000);
     }
   },
 
