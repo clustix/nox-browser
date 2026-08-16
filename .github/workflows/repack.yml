@@ -43,12 +43,43 @@ jobs:
               os.makedirs(os.path.dirname(target), exist_ok=True)
               with open(target, "wb") as f:
                   f.write(entry.read())
-          print("omni.ja successfully extracted")
           '
           rm omni.ja
 
-          cp -rf ../../browser/components/preferences/* omni_extracted/chrome/browser/content/browser/preferences/ 2>/dev/null || true
+          cp -f ../../browser/components/preferences/main.js omni_extracted/chrome/browser/content/browser/preferences/main.js 2>/dev/null || true
           cp -rf ../../browser/themes/* omni_extracted/chrome/browser/skin/classic/browser/ 2>/dev/null || true
+
+          python3 -c '
+          xhtml_path = "omni_extracted/chrome/browser/content/browser/preferences/preferences.xhtml"
+          if os.path.exists(xhtml_path):
+              with open(xhtml_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+
+              glow_markup = """
+              <!-- NOX GLOW UI -->
+              <html:div id="noxGlowGroup" class="subcategory" data-category="paneGeneral" style="margin-block: 20px;">
+                <html:h2 style="font-size: 1.3em; font-weight: 600; margin-bottom: 12px;">Кастомизация свечения Nox UI</html:h2>
+                <html:div style="display: flex; align-items: center; justify-content: space-between; margin-block: 10px;">
+                  <html:label for="noxGlowColorPicker">Цвет акцентного свечения</html:label>
+                  <html:input type="color" id="noxGlowColorPicker" value="#ffffff" style="cursor: pointer; border: none; background: transparent; width: 40px; height: 30px;"/>
+                </html:div>
+                <html:div style="display: flex; align-items: center; justify-content: space-between; margin-block: 10px;">
+                  <html:label for="noxGlowRange">Радиус свечения</html:label>
+                  <html:div style="display: flex; align-items: center; gap: 10px;">
+                    <html:input type="range" id="noxGlowRange" min="0" max="40" value="12"/>
+                    <html:span id="noxGlowRangeValue" style="min-width: 35px; font-variant-numeric: tabular-nums;">12px</html:span>
+                  </html:div>
+                </html:div>
+              </html:div>
+              """
+
+              if "</template>" in content:
+                  content = content.replace("</template>", glow_markup + "\n</template>", 1)
+              
+              with open(xhtml_path, "w", encoding="utf-8") as f:
+                  f.write(content)
+              print("Patched preferences.xhtml successfully")
+          '
 
           python3 -c '
           import zipfile, os
@@ -58,7 +89,6 @@ jobs:
                       full_path = os.path.join(root, file)
                       rel_path = os.path.relpath(full_path, "omni_extracted")
                       z.write(full_path, rel_path)
-          print("omni.ja successfully repacked")
           '
           rm -rf omni_extracted
 
