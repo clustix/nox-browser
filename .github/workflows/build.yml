@@ -18,6 +18,19 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Cache Toolchains & Object Directory
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.mozbuild
+            ~/.cache/sccache
+            ~/.cargo/registry
+            ~/.cargo/git
+            obj-*
+          key: nox-full-build-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            nox-full-build-${{ runner.os }}-
+
       - name: Install System Dependencies & Toolchain
         run: |
           sudo apt-get update
