@@ -28,9 +28,22 @@ jobs:
           cd nox-browser/browser
 
           python3 -c '
-          import zipfile, os
-          with zipfile.ZipFile("omni.ja", "r") as z:
-              z.extractall("omni_extracted")
+          import sys, os
+          repo_root = os.path.abspath("../..")
+          for p in ["python/mozbuild", "third_party/python/six", "python/mach"]:
+              sys.path.insert(0, os.path.join(repo_root, p))
+
+          from mozpack.mozjar import JarReader
+
+          reader = JarReader("omni.ja")
+          for item in reader:
+              filename = item.filename if hasattr(item, "filename") else str(item)
+              entry = item if hasattr(item, "read") else reader[item]
+              target = os.path.join("omni_extracted", filename)
+              os.makedirs(os.path.dirname(target), exist_ok=True)
+              with open(target, "wb") as f:
+                  f.write(entry.read())
+          print("omni.ja successfully extracted")
           '
           rm omni.ja
 
@@ -45,6 +58,7 @@ jobs:
                       full_path = os.path.join(root, file)
                       rel_path = os.path.relpath(full_path, "omni_extracted")
                       z.write(full_path, rel_path)
+          print("omni.ja successfully repacked")
           '
           rm -rf omni_extracted
 
