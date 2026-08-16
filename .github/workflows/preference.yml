@@ -45,7 +45,8 @@ jobs:
       - name: Build Preferences
         run: |
           touch CLOBBER obj-*/CLOBBER 2>/dev/null || true
-          ./mach build browser/components/preferences
+          ./mach build browser/base
+          ./mach package
 
       - name: Package browser
         run: |

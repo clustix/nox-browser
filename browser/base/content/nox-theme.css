@@ -1,24 +1,94 @@
 :root {
-  --nox-bg-base: rgba(12, 12, 12, 0.70);
-  --nox-bg-hover: rgba(255, 255, 255, 0.08);
-  --nox-bg-active: rgba(255, 255, 255, 0.12);
-  --nox-border-glass: rgba(255, 255, 255, 0.15);
-
-  --nox-glow-color: #ffffff;
-  --nox-glow-intensity: 12px;
-  --nox-glow-opacity: 0.6;
-
-  --nox-radius-main: 10px;
-  --nox-radius-sm: 6px;
-  --nox-blur: 24px;
+  --nox-glass-bg: rgba(18, 16, 26, 0.40);
+  --nox-glass-border: rgba(255, 255, 255, 0.16);
+  --nox-glass-hover: rgba(255, 255, 255, 0.09);
+  --nox-glass-active: rgba(255, 255, 255, 0.18);
+  
+  --nox-glow-color: #7b52ff;
+  --nox-glow-intensity: 14px;
+  
+  --nox-island-radius: 16px;
+  --nox-island-gap: 8px;
+  --nox-blur-strength: 32px;
 }
 
 #main-window {
   background: transparent !important;
+  appearance: none !important;
 }
 
 #navigator-toolbox {
-  background: var(--nox-bg-base) !important;
-  backdrop-filter: blur(var(--nox-blur)) saturate(120%) !important;
-  border-bottom: 1px solid var(--nox-border-glass) !important;
+  background: var(--nox-glass-bg) !important;
+  backdrop-filter: blur(var(--nox-blur-strength)) saturate(160%) !important;
+  border-bottom: 1px solid var(--nox-glass-border) !important;
+  padding-bottom: 4px !important;
+}
+
+#TabsToolbar {
+  background: transparent !important;
+  margin-inline: 8px !important;
+}
+
+.tabbrowser-tab {
+  padding-inline: 2px !important;
+}
+
+.tabbrowser-tab .tab-background {
+  border-radius: 10px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  margin-block: 4px !important;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1) !important;
+}
+
+.tabbrowser-tab:hover .tab-background:not([selected="true"]) {
+  background: var(--nox-glass-hover) !important;
+  border-color: var(--nox-glass-border) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-background {
+  background: var(--nox-glass-active) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 0 var(--nox-glow-intensity) color-mix(in srgb, var(--nox-glow-color) 50%, transparent) !important;
+}
+
+#nav-bar {
+  background: transparent !important;
+  padding-inline: 8px !important;
+}
+
+#urlbar-background {
+  background: rgba(0, 0, 0, 0.25) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--nox-glass-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+#urlbar[focused="true"] > #urlbar-background {
+  border-color: var(--nox-glow-color) !important;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--nox-glow-color) 60%, transparent) !important;
+}
+
+#tabbrowser-tabbox,
+#tabbrowser-tabpanels {
+  background: transparent !important;
+  padding: 0 var(--nox-island-gap) var(--nox-island-gap) var(--nox-island-gap) !important;
+}
+
+#tabbrowser-tabpanels .browserContainer,
+#tabbrowser-tabpanels .browserSidebarContainer {
+  border-radius: var(--nox-island-radius) !important;
+  overflow: hidden !important;
+  background: var(--in-content-page-background, #ffffff) !important;
+  border: 1px solid var(--nox-glass-border) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+}
+
+#tabbrowser-tabpanels browser[type="content"] {
+  border-radius: var(--nox-island-radius) !important;
 }
