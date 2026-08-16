@@ -7,3 +7,6 @@ ac_add_options --enable-branding=browser/branding/official
 
 ac_add_options --with-app-name=nox
 ac_add_options --with-app-basename=Nox
+
+mk_add_options AUTOCLOBBER=1
+ac_add_options --with-ccache=sccache
