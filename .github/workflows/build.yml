@@ -51,6 +51,7 @@ jobs:
 
       - name: Build
         run: |
+          touch obj-*/CLOBBER 2>/dev/null || true
           ./mach build
 
       - name: Package browser
