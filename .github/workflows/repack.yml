@@ -18,9 +18,9 @@ jobs:
 
       - name: Download Base Build (Nightly / Base Binary)
         run: |
-          sudo apt-get update && sudo apt-get install -y wget zip unzip p7zip-full
-          wget -O base-browser.tar.bz2 "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US"
-          tar -xjf base-browser.tar.bz2
+          sudo apt-get update && sudo apt-get install -y wget zip unzip xz-utils
+          wget -O base-browser.tar.xz "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US"
+          tar -xf base-browser.tar.xz
           mv firefox nox-browser
 
       - name: Inject Custom Nox UI into omni.ja
