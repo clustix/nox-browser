@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Download Base Build (Nightly / Base Binary)
+      - name: Download Base Build
         run: |
           sudo apt-get update && sudo apt-get install -y wget zip unzip xz-utils
           wget -O base-browser.tar.xz "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US"
@@ -50,13 +50,13 @@ jobs:
           cp -rf ../../browser/themes/* omni_extracted/chrome/browser/skin/classic/browser/ 2>/dev/null || true
 
           python3 -c '
+          import os
           xhtml_path = "omni_extracted/chrome/browser/content/browser/preferences/preferences.xhtml"
           if os.path.exists(xhtml_path):
               with open(xhtml_path, "r", encoding="utf-8") as f:
                   content = f.read()
 
               glow_markup = """
-              <!-- NOX GLOW UI -->
               <html:div id="noxGlowGroup" class="subcategory" data-category="paneGeneral" style="margin-block: 20px;">
                 <html:h2 style="font-size: 1.3em; font-weight: 600; margin-bottom: 12px;">Кастомизация свечения Nox UI</html:h2>
                 <html:div style="display: flex; align-items: center; justify-content: space-between; margin-block: 10px;">
@@ -78,7 +78,6 @@ jobs:
               
               with open(xhtml_path, "w", encoding="utf-8") as f:
                   f.write(content)
-              print("Patched preferences.xhtml successfully")
           '
 
           python3 -c '
