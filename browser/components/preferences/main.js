@@ -549,7 +549,21 @@ function createStartupConfig(hidden = false) {
   };
 }
 
+function createNoxGlowConfig() {
+  return {
+    l10nId: "Customize Nox UI",
+    headingLevel: 2,
+    items: [
+      {
+        id: "noxGlowColorPickerItem",
+        control: "html:div",
+      },
+    ],
+  };
+}
+
 SettingGroupManager.registerGroups({
+  noxGlow: createNoxGlowConfig(),
   defaultBrowser: createDefaultBrowserConfig(),
   startup: createStartupConfig(
     Services.prefs.getBoolPref("browser.settings-redesign.enabled", false)
@@ -644,6 +658,7 @@ var gMainPane = {
     gMainPane.initTranslations();
 
     // Initialize settings groups from the config object.
+    initSettingGroup("noxGlow");
     initSettingGroup("browserLayout");
     initSettingGroup("appearance");
     initSettingGroup("drm");
@@ -689,34 +704,71 @@ var gMainPane = {
   },
 
 initNoxGlow() {
-    const colorPicker = document.getElementById("noxGlowColorPicker");
-    const rangeInput = document.getElementById("noxGlowRange");
-    const rangeValue = document.getElementById("noxGlowRangeValue");
+    const attachControls = () => {
+      const group =
+        document.querySelector('setting-group[groupid="noxGlow"]') ||
+        document.getElementById("generalCategory")?.parentElement;
 
-    if (!colorPicker || !rangeInput) {
-      return;
-    }
-
-    const currentColor = Services.prefs.getStringPref("nox.theme.glow.color", "#ffffff");
-    const currentIntensity = Services.prefs.getStringPref("nox.theme.glow.intensity", "12px");
-
-    colorPicker.value = currentColor;
-    rangeInput.value = parseInt(currentIntensity, 10) || 12;
-    if (rangeValue) {
-      rangeValue.textContent = currentIntensity;
-    }
-
-    colorPicker.addEventListener("input", (e) => {
-      Services.prefs.setStringPref("nox.theme.glow.color", e.target.value);
-    });
-
-    rangeInput.addEventListener("input", (e) => {
-      const val = `${e.target.value}px`;
-      if (rangeValue) {
-        rangeValue.textContent = val;
+      if (!group || document.getElementById("noxGlowControlsContainer")) {
+        return false;
       }
-      Services.prefs.setStringPref("nox.theme.glow.intensity", val);
-    });
+
+      const container = document.createElement("div");
+      container.id = "noxGlowControlsContainer";
+      container.style.cssText =
+        "margin-block: 16px; padding: 14px; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);";
+
+      const currentColor = Services.prefs.getStringPref(
+        "nox.theme.glow.color",
+        "#ffffff"
+      );
+      const currentIntensity = Services.prefs.getStringPref(
+        "nox.theme.glow.intensity",
+        "12px"
+      );
+
+      container.innerHTML = `
+        <h2 style="font-size: 1.2em; font-weight: 600; margin-bottom: 12px;">Кастомизация свечения Nox UI</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-block: 8px;">
+          <label for="noxGlowColorPicker" style="font-size: 13px;">Цвет акцентного свечения</label>
+          <input type="color" id="noxGlowColorPicker" value="${currentColor}" style="cursor: pointer; border: none; background: transparent; width: 44px; height: 32px;"/>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-block: 8px;">
+          <label for="noxGlowRange" style="font-size: 13px;">Радиус свечения</label>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="range" id="noxGlowRange" min="0" max="40" value="${parseInt(currentIntensity, 10) || 12}" style="cursor: pointer;"/>
+            <span id="noxGlowRangeValue" style="min-width: 35px; font-variant-numeric: tabular-nums;">${currentIntensity}</span>
+          </div>
+        </div>
+      `;
+
+      group.appendChild(container);
+
+      const colorPicker = container.querySelector("#noxGlowColorPicker");
+      const rangeInput = container.querySelector("#noxGlowRange");
+      const rangeValue = container.querySelector("#noxGlowRangeValue");
+
+      colorPicker.addEventListener("input", e => {
+        Services.prefs.setStringPref("nox.theme.glow.color", e.target.value);
+      });
+
+      rangeInput.addEventListener("input", e => {
+        const val = `${e.target.value}px`;
+        rangeValue.textContent = val;
+        Services.prefs.setStringPref("nox.theme.glow.intensity", val);
+      });
+
+      return true;
+    };
+
+    if (!attachControls()) {
+      const interval = setInterval(() => {
+        if (attachControls()) {
+          clearInterval(interval);
+        }
+      }, 100);
+      setTimeout(() => clearInterval(interval), 3000);
+    }
   },
 
   preInit() {

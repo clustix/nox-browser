@@ -51,22 +51,7 @@
 <html:setting-group groupid="appearance" data-category="paneGeneral" data-srd-migrated="" hidden="true"></html:setting-group>
 
 <!-- Nox UI Customization -->
-<html:div id="noxGlowGroup" class="subcategory" data-category="paneGeneral" style="margin-block: 20px; padding: 16px; background: rgba(255, 255, 255, 0.04); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
-  <html:h2 style="font-size: 1.2em; font-weight: 600; margin-bottom: 14px;">Кастомизация свечения Nox UI</html:h2>
-
-  <html:div style="display: flex; align-items: center; justify-content: space-between; margin-block: 10px;">
-    <html:label for="noxGlowColorPicker" style="font-size: 13px;">Цвет акцентного свечения</html:label>
-    <html:input type="color" id="noxGlowColorPicker" value="#ffffff" style="cursor: pointer; border: none; background: transparent; width: 44px; height: 32px;"/>
-  </html:div>
-
-  <html:div style="display: flex; align-items: center; justify-content: space-between; margin-block: 10px;">
-    <html:label for="noxGlowRange" style="font-size: 13px;">Радиус свечения</html:label>
-    <html:div style="display: flex; align-items: center; gap: 12px;">
-      <html:input type="range" id="noxGlowRange" min="0" max="40" value="12" style="cursor: pointer;"/>
-      <html:span id="noxGlowRangeValue" style="min-width: 35px; font-variant-numeric: tabular-nums;">12px</html:span>
-    </html:div>
-  </html:div>
-</html:div>
+<html:setting-group groupid="noxGlow" data-category="paneGeneral"></html:setting-group>
 
 <!-- Zoom -->
 <html:setting-group id="zoomGroup" groupid="zoom" data-category="paneGeneral" hidden="true" data-srd-migrated="" />
