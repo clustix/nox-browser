@@ -1,0 +1,48 @@
+name: Fast Repack Nox UI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  repack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python & Tools
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download Base Build (Nightly / Base Binary)
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget zip unzip p7zip-full
+          wget -O base-browser.tar.bz2 "https://download.mozilla.org/?product=firefox-nightly-latest-ssl&os=linux64&lang=en-US"
+          tar -xjf base-browser.tar.bz2
+          mv firefox nox-browser
+
+      - name: Inject Custom Nox UI into omni.ja
+        run: |
+          cd nox-browser/browser
+          unzip -q omni.ja -d omni_extracted/
+          rm omni.ja
+
+          cp -rf ../../browser/components/preferences/* omni_extracted/chrome/browser/content/browser/preferences/ || true
+          cp -rf ../../browser/themes/* omni_extracted/chrome/browser/skin/classic/browser/ || true
+
+          cd omni_extracted
+          zip -0 -q -r ../omni.ja *
+          cd ..
+          rm -rf omni_extracted
+
+      - name: Package Final Archive
+        run: |
+          tar -cJf nox-browser-custom-ui.tar.xz nox-browser/
+
+      - name: Upload Fast UI Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nox-browser-custom-ui
+          path: nox-browser-custom-ui.tar.xz
