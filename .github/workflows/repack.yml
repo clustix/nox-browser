@@ -26,16 +26,26 @@ jobs:
       - name: Inject Custom Nox UI into omni.ja
         run: |
           cd nox-browser/browser
-          
-          7z x omni.ja -oomni_extracted/
+
+          python3 -c '
+          import zipfile, os
+          with zipfile.ZipFile("omni.ja", "r") as z:
+              z.extractall("omni_extracted")
+          '
           rm omni.ja
 
           cp -rf ../../browser/components/preferences/* omni_extracted/chrome/browser/content/browser/preferences/ 2>/dev/null || true
           cp -rf ../../browser/themes/* omni_extracted/chrome/browser/skin/classic/browser/ 2>/dev/null || true
 
-          cd omni_extracted
-          zip -0 -q -r ../omni.ja *
-          cd ..
+          python3 -c '
+          import zipfile, os
+          with zipfile.ZipFile("omni.ja", "w", compression=zipfile.ZIP_STORED) as z:
+              for root, dirs, files in os.walk("omni_extracted"):
+                  for file in files:
+                      full_path = os.path.join(root, file)
+                      rel_path = os.path.relpath(full_path, "omni_extracted")
+                      z.write(full_path, rel_path)
+          '
           rm -rf omni_extracted
 
       - name: Package Final Archive
