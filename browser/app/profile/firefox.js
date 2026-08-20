@@ -3689,3 +3689,8 @@ pref("layout.css.backdrop-filter.enabled", true);
 pref("widget.wayland.opaque-region.enabled", false);
 pref("nox.theme.glow.color", "#ffffff");
 pref("nox.theme.glow.intensity", "12px");
+
+// New Tab dark theme overrides
+pref("browser.newtabpage.activity-stream.fxaccounts.darkTheme", true);
+pref("layout.css.prefers-color-scheme.content-override", 0);
+pref("ui.systemUsesDarkTheme", 1);
