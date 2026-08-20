@@ -1,17 +1,12 @@
 :root {
-  --nox-glass-bg: rgba(14, 12, 20, 0.45);
-  --nox-glass-border: rgba(255, 255, 255, 0.12);
-  --nox-glass-hover: rgba(255, 255, 255, 0.08);
-  --nox-glass-active: rgba(255, 255, 255, 0.16);
+  --nox-shell-gradient: linear-gradient(135deg, rgba(38, 20, 68, 0.72) 0%, rgba(20, 14, 38, 0.78) 100%);
+  --nox-shell-border: rgba(255, 255, 255, 0.18);
+  --nox-tab-inactive-hover: rgba(255, 255, 255, 0.12);
+  --nox-tab-inactive-text: rgba(255, 255, 255, 0.75);
   
-  --nox-glow-color: #8a5cf6;
-  --nox-glow-intensity: 12px;
-  
-  --nox-island-radius: 14px;
-  --nox-island-gap: 10px;
-  --nox-blur-strength: 32px;
-  
-  --in-content-page-background: #16151d !important;
+  --nox-island-bg: #ffffff;
+  --nox-island-radius: 18px;
+  --nox-island-margin: 10px;
 }
 
 #main-window {
@@ -19,77 +14,116 @@
   appearance: none !important;
 }
 
+body {
+  background: var(--nox-shell-gradient) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  border-radius: var(--nox-island-radius) !important;
+  border: 1px solid var(--nox-shell-border) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5) !important;
+}
+
 #navigator-toolbox {
-  background: var(--nox-glass-bg) !important;
-  backdrop-filter: blur(var(--nox-blur-strength)) saturate(160%) !important;
-  border-bottom: 1px solid var(--nox-glass-border) !important;
-  padding-bottom: 2px !important;
-}
-
-#navigator-toolbox > * {
-  background: transparent !important;
-}
-
-#nav-bar,
-#PersonalToolbar,
-#toolbar-menubar {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  padding: 6px 12px 0 12px !important;
 }
 
 #TabsToolbar {
   background: transparent !important;
-  margin-inline: 4px !important;
+  min-height: 40px !important;
 }
 
-.tabbrowser-tab .tab-background {
-  border-radius: 8px !important;
+.tabbrowser-tab:not([selected="true"]) .tab-background {
   background: transparent !important;
+  border-radius: 12px 12px 0 0 !important;
   border: 1px solid transparent !important;
-  margin-block: 3px !important;
-  transition: all 0.15s ease !important;
+  transition: all 0.2s ease !important;
 }
 
-.tabbrowser-tab:hover .tab-background:not([selected="true"]) {
-  background: var(--nox-glass-hover) !important;
+.tabbrowser-tab:not([selected="true"]):hover .tab-background {
+  background: var(--nox-tab-inactive-hover) !important;
+}
+
+.tabbrowser-tab:not([selected="true"]) .tab-label {
+  color: var(--nox-tab-inactive-text) !important;
+  font-weight: 500 !important;
+}
+
+.tabbrowser-tab[selected="true"] {
+  position: relative !important;
+  z-index: 10 !important;
 }
 
 .tabbrowser-tab[selected="true"] .tab-background {
-  background: var(--nox-glass-active) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 0 var(--nox-glow-intensity) color-mix(in srgb, var(--nox-glow-color) 45%, transparent) !important;
+  background: var(--nox-island-bg) !important;
+  border-radius: 14px 14px 0 0 !important;
+  border: 1px solid var(--nox-shell-border) !important;
+  border-bottom: none !important;
+  margin-bottom: -1px !important;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: #1a1a24 !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Навигационная строка (минималистичный белый бар под цвет островка) */
+#nav-bar {
+  background: var(--nox-island-bg) !important;
+  border: 1px solid var(--nox-shell-border) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: var(--nox-island-radius) var(--nox-island-radius) 0 0 !important;
+  margin: 0 var(--nox-island-margin) !important;
+  padding: 6px 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+#urlbar-container {
+  min-height: 32px !important;
 }
 
 #urlbar-background {
-  background: rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid var(--nox-glass-border) !important;
-  border-radius: 10px !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-radius: 20px !important;
+  box-shadow: none !important;
 }
 
 #urlbar[focused="true"] > #urlbar-background {
-  border-color: var(--nox-glow-color) !important;
-  box-shadow: 0 0 12px color-mix(in srgb, var(--nox-glow-color) 50%, transparent) !important;
+  background: #ffffff !important;
+  border-color: rgba(123, 82, 255, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(123, 82, 255, 0.15) !important;
+}
+
+#urlbar-input, 
+#nav-bar toolbarbutton {
+  color: #2b2a33 !important;
+  fill: #2b2a33 !important;
+}
+
+#PersonalToolbar {
+  display: none !important;
 }
 
 #tabbrowser-tabbox,
 #tabbrowser-tabpanels {
   background: transparent !important;
-  padding: var(--nox-island-gap) !important;
+  padding: 0 var(--nox-island-margin) var(--nox-island-margin) var(--nox-island-margin) !important;
 }
 
 #tabbrowser-tabpanels .browserContainer,
 #tabbrowser-tabpanels .browserSidebarContainer {
-  border-radius: var(--nox-island-radius) !important;
+  background: var(--nox-island-bg) !important;
+  border-radius: 0 0 var(--nox-island-radius) var(--nox-island-radius) !important;
+  border: 1px solid var(--nox-shell-border) !important;
+  border-top: none !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35) !important;
   overflow: hidden !important;
-  background-color: var(--in-content-page-background) !important;
-  border: 1px solid var(--nox-glass-border) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
 #tabbrowser-tabpanels browser[type="content"] {
-  border-radius: var(--nox-island-radius) !important;
-  background-color: var(--in-content-page-background) !important;
+  border-radius: 0 0 var(--nox-island-radius) var(--nox-island-radius) !important;
+  background: var(--nox-island-bg) !important;
 }
