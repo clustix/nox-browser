@@ -42,10 +42,8 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Build Frontend
-        run: |
-          touch CLOBBER obj-*/CLOBBER 2>/dev/null || true
-          ./mach build browser
+      - name: Build
+        run: ./mach build
 
       - name: Package browser
         run: ./mach package
