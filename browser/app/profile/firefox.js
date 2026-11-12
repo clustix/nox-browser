@@ -3680,9 +3680,10 @@ pref("widget.windows.window-transparency", true);
 pref("intl.locale.requested", "");
 
 // Nox Visual Settings
-pref("nox.browser.accentColor", "blue");
+pref("nox.browser.accentColor", "purple");
 pref("nox.browser.transparency", 50);
 pref("nox.browser.glassIntensity", "medium");
+pref("nox.browser.liquidGlass", true);
 pref("nox.browser.animationsEnabled", true);
 pref("nox.browser.roundedCorners", true);
 pref("layout.css.backdrop-filter.enabled", true);

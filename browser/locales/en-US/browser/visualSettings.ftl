@@ -32,6 +32,10 @@ visual-settings-glass-medium-desc = Balanced effect
 visual-settings-glass-high = High
 visual-settings-glass-high-desc = Strong transparency
 
+visual-settings-effects-title = Effects
+visual-settings-liquid-glass-title = Liquid Glass
+visual-settings-liquid-glass-desc = iOS-style glass transparency
+
 visual-settings-animations-title = Enable Animations
 visual-settings-animations-description = Smooth transitions and effects
 visual-settings-corners-title = Rounded Corners

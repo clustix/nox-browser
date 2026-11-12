@@ -5,6 +5,9 @@
 const PREF_ACCENT_COLOR = "nox.browser.accentColor";
 const PREF_TRANSPARENCY = "nox.browser.transparency";
 const PREF_GLASS_INTENSITY = "nox.browser.glassIntensity";
+const PREF_LIQUID_GLASS = "nox.browser.liquidGlass";
+const PREF_ANIMATIONS = "nox.browser.animationsEnabled";
+const PREF_ROUNDED = "nox.browser.roundedCorners";
 
 var gNoxVisualSettings = {
   init() {
@@ -32,6 +35,13 @@ var gNoxVisualSettings = {
     if (glassBtn) {
       glassBtn.classList.add("selected");
     }
+
+    document.getElementById("nox-liquid-glass").checked =
+      Services.prefs.getBoolPref(PREF_LIQUID_GLASS, true);
+    document.getElementById("nox-animations").checked =
+      Services.prefs.getBoolPref(PREF_ANIMATIONS, true);
+    document.getElementById("nox-rounded-corners").checked =
+      Services.prefs.getBoolPref(PREF_ROUNDED, true);
   },
 
   setupEventListeners() {
@@ -72,6 +82,19 @@ var gNoxVisualSettings = {
     if (selectedGlass) {
       Services.prefs.setCharPref(PREF_GLASS_INTENSITY, selectedGlass.dataset.intensity);
     }
+
+    Services.prefs.setBoolPref(
+      PREF_LIQUID_GLASS,
+      document.getElementById("nox-liquid-glass").checked
+    );
+    Services.prefs.setBoolPref(
+      PREF_ANIMATIONS,
+      document.getElementById("nox-animations").checked
+    );
+    Services.prefs.setBoolPref(
+      PREF_ROUNDED,
+      document.getElementById("nox-rounded-corners").checked
+    );
 
     this.closeDialog();
   },

@@ -419,3 +419,7 @@ CLAUDE.local.md
 # Ignore .json.gz (typically profiles) in the root directory
 # lint-ignore-next-line: git-only
 /*.json.gz
+
+# Nox local analysis dumps (repomix)
+/repomix-output.xml
+/nox-ui-context.txt

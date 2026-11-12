@@ -1,13 +1,37 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://browser/skin/nox-glass.css");
+
 :root {
-  --nox-shell-gradient: linear-gradient(135deg, rgba(30, 16, 54, 0.75) 0%, rgba(14, 10, 28, 0.82) 100%);
-  --nox-shell-border: rgba(255, 255, 255, 0.16);
-  --nox-tab-inactive-hover: rgba(255, 255, 255, 0.10);
-  --nox-tab-inactive-text: rgba(255, 255, 255, 0.70);
-  
-  --nox-island-bg: #14131b;
-  --nox-island-radius: 16px;
-  --nox-island-margin: 10px;
   --nox-accent-color: #a855f7;
+  --nox-surface-color: #14131b;
+  --nox-surface-alpha: 0.85;
+  --nox-glass-blur: 20px;
+  --nox-glass-sat: 1.6;
+  --nox-glass-enabled: 1;
+  --nox-anim: 1;
+  --nox-radius: 20px;
+  --nox-glow-color: #ffffff;
+  --nox-glow-intensity: 12px;
+
+  --nox-surface: color-mix(
+    in srgb,
+    var(--nox-surface-color) calc(var(--nox-surface-alpha) * 100%),
+    transparent
+  );
+  --nox-surface-strong: color-mix(
+    in srgb,
+    var(--nox-surface-color) calc(min(1, var(--nox-surface-alpha) + 0.12) * 100%),
+    transparent
+  );
+  --nox-border: rgba(255, 255, 255, 0.14);
+  --nox-border-soft: rgba(255, 255, 255, 0.08);
+  --nox-text: #f2f2f7;
+  --nox-text-dim: rgba(242, 242, 247, 0.65);
+  --nox-hover: rgba(255, 255, 255, 0.08);
+  --nox-active: rgba(255, 255, 255, 0.14);
 
   --in-content-page-background: #14131b !important;
 }
@@ -18,24 +42,30 @@
 }
 
 body {
-  background: var(--nox-shell-gradient) !important;
-  backdrop-filter: blur(40px) saturate(180%) !important;
-  border-radius: var(--nox-island-radius) !important;
-  border: 1px solid var(--nox-shell-border) !important;
+  background:
+    radial-gradient(
+      120% 90% at 15% -10%,
+      color-mix(in srgb, var(--nox-accent-color) 16%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(135deg, rgba(24, 18, 38, 0.94), rgba(10, 10, 16, 0.96)) !important;
+  border-radius: var(--nox-radius) !important;
+  border: 1px solid var(--nox-border) !important;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5) !important;
+  color: var(--nox-text) !important;
 }
 
 #navigator-toolbox {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 6px var(--nox-island-margin) 0 var(--nox-island-margin) !important;
+  padding: 6px 10px 0 10px !important;
 }
 
 #TabsToolbar {
   background: transparent !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 2px 6px 0 6px !important;
 }
 
 .tabbrowser-tab {
@@ -44,19 +74,27 @@ body {
 
 .tabbrowser-tab:not([selected="true"]) .tab-background {
   background: transparent !important;
-  border-radius: 10px 10px 0 0 !important;
+  border-radius: 10px !important;
   border: 1px solid transparent !important;
-  margin-block: 4px 0 !important;
-  transition: all 0.15s ease !important;
+  margin-block: 4px 2px !important;
+  transition:
+    background calc(var(--nox-anim) * 0.15s) ease,
+    border-color calc(var(--nox-anim) * 0.15s) ease !important;
 }
 
 .tabbrowser-tab:not([selected="true"]):hover .tab-background {
-  background: var(--nox-tab-inactive-hover) !important;
+  background: var(--nox-hover) !important;
+  border-color: var(--nox-border-soft) !important;
 }
 
 .tabbrowser-tab:not([selected="true"]) .tab-label {
-  color: var(--nox-tab-inactive-text) !important;
+  color: var(--nox-text-dim) !important;
   font-weight: 500 !important;
+  transition: color calc(var(--nox-anim) * 0.15s) ease !important;
+}
+
+.tabbrowser-tab:not([selected="true"]):hover .tab-label {
+  color: var(--nox-text) !important;
 }
 
 .tabbrowser-tab[selected="true"] {
@@ -65,12 +103,18 @@ body {
 }
 
 .tabbrowser-tab[selected="true"] .tab-background {
-  background: var(--nox-island-bg) !important;
-  border-radius: 12px 12px 0 0 !important;
-  border: 1px solid var(--nox-shell-border) !important;
-  border-bottom: none !important;
-  margin-block: 2px 0 !important;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2) !important;
+  background: var(--nox-surface-strong) !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--nox-border) !important;
+  margin-block: 4px 2px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 2px 12px rgba(0, 0, 0, 0.3),
+    0 0 var(--nox-glow-intensity)
+      color-mix(in srgb, var(--nox-glow-color) 30%, transparent) !important;
+  transition:
+    background calc(var(--nox-anim) * 0.2s) ease,
+    box-shadow calc(var(--nox-anim) * 0.2s) ease !important;
 }
 
 .tabbrowser-tab[selected="true"] .tab-label {
@@ -79,13 +123,29 @@ body {
 }
 
 #nav-bar {
-  background: var(--nox-island-bg) !important;
-  border: 1px solid var(--nox-shell-border) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-  border-radius: var(--nox-island-radius) var(--nox-island-radius) 0 0 !important;
-  margin: 0 !important;
-  padding: 6px 12px !important;
-  box-shadow: none !important;
+  position: relative !important;
+  background: var(--nox-surface) !important;
+  border: 1px solid var(--nox-border) !important;
+  border-radius: var(--nox-radius) !important;
+  margin: 6px 2px 2px 2px !important;
+  padding: 5px 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+  transition: background calc(var(--nox-anim) * 0.25s) ease !important;
+}
+
+#nav-bar toolbarbutton {
+  border-radius: 9px !important;
+  color: var(--nox-text) !important;
+  fill: currentColor !important;
+  transition: background calc(var(--nox-anim) * 0.15s) ease !important;
+}
+
+#nav-bar toolbarbutton:not([disabled]):hover {
+  background: var(--nox-hover) !important;
+}
+
+#nav-bar toolbarbutton:not([disabled]):active {
+  background: var(--nox-active) !important;
 }
 
 #urlbar-container {
@@ -93,22 +153,28 @@ body {
 }
 
 #urlbar-background {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid var(--nox-shell-border) !important;
-  border-radius: 20px !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid var(--nox-border-soft) !important;
+  border-radius: 999px !important;
   box-shadow: none !important;
+  transition:
+    background calc(var(--nox-anim) * 0.15s) ease,
+    border-color calc(var(--nox-anim) * 0.15s) ease !important;
+}
+
+#urlbar:hover > #urlbar-background {
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 #urlbar[focused="true"] > #urlbar-background {
-  background: rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.13) !important;
   border-color: var(--nox-accent-color) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--nox-accent-color) 30%, transparent) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--nox-accent-color) 30%, transparent) !important;
 }
 
-#urlbar-input, 
-#nav-bar toolbarbutton {
-  color: #ffffff !important;
-  fill: #ffffff !important;
+#urlbar-input {
+  color: var(--nox-text) !important;
 }
 
 #PersonalToolbar {
@@ -118,20 +184,19 @@ body {
 #tabbrowser-tabbox,
 #tabbrowser-tabpanels {
   background: transparent !important;
-  padding: 0 var(--nox-island-margin) var(--nox-island-margin) var(--nox-island-margin) !important;
+  padding: 0 12px 12px 12px !important;
 }
 
 #tabbrowser-tabpanels .browserContainer,
 #tabbrowser-tabpanels .browserSidebarContainer {
-  background: var(--nox-island-bg) !important;
-  border-radius: 0 0 var(--nox-island-radius) var(--nox-island-radius) !important;
-  border: 1px solid var(--nox-shell-border) !important;
-  border-top: none !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+  background: var(--nox-surface-strong) !important;
+  border-radius: var(--nox-radius) !important;
+  border: 1px solid var(--nox-border) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
   overflow: hidden !important;
 }
 
 #tabbrowser-tabpanels browser[type="content"] {
-  border-radius: 0 0 var(--nox-island-radius) var(--nox-island-radius) !important;
-  background: var(--nox-island-bg) !important;
+  border-radius: var(--nox-radius) !important;
+  background: var(--nox-surface-color) !important;
 }
