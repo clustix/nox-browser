@@ -44,11 +44,11 @@
 body {
   background:
     radial-gradient(
-      120% 90% at 15% -10%,
-      color-mix(in srgb, var(--nox-accent-color) 16%, transparent),
-      transparent 60%
+      130% 100% at 15% -10%,
+      color-mix(in srgb, var(--nox-accent-color) 28%, transparent),
+      transparent 55%
     ),
-    linear-gradient(135deg, rgba(24, 18, 38, 0.94), rgba(10, 10, 16, 0.96)) !important;
+    linear-gradient(135deg, rgba(45, 30, 78, 0.85), rgba(20, 16, 34, 0.9)) !important;
   border-radius: var(--nox-radius) !important;
   border: 1px solid var(--nox-border) !important;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5) !important;

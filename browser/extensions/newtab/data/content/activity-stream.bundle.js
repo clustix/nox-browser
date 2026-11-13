@@ -28902,6 +28902,7 @@ class BaseContent extends (external_React_default()).PureComponent {
     this.toggleSectionsMgmtPanel = this.toggleSectionsMgmtPanel.bind(this);
     this.toggleWidgetsManagementPanel = this.toggleWidgetsManagementPanel.bind(this);
     this.openWidgetsPanel = this.openWidgetsPanel.bind(this);
+    this.openNoxVisualSettings = this.openNoxVisualSettings.bind(this);
     this.attachSearchSentinel = this.attachSearchSentinel.bind(this);
     this.onSearchSentinelIntersect = this.onSearchSentinelIntersect.bind(this);
     this.searchStickyObserver = null;
@@ -29256,6 +29257,9 @@ class BaseContent extends (external_React_default()).PureComponent {
       event: "OPEN_NEWTAB_PREFS"
     }));
   }
+  openNoxVisualSettings() {
+    const dialog = window.open("chrome://browser/content/preferences/dialogs/nox-visual-settings.xhtml", "NoxVisualSettings", "width=450,height=500,modal,centerscreen");
+  }
   openCustomizationMenu() {
     this.props.dispatch({
       type: actionTypes.SHOW_PERSONALIZE
@@ -29445,6 +29449,9 @@ class BaseContent extends (external_React_default()).PureComponent {
         showSectionsMgmtPanel: false
       });
     }
+  }
+  openNoxVisualSettings() {
+    window.openDialog("chrome://browser/content/preferences/dialogs/nox-visual-settings.xhtml", "NoxVisualSettings", "centerscreen,chrome,dialog,modal,resizable=no");
   }
   shouldDisplayTopicSelectionModal() {
     const prefs = this.props.Prefs.values;
@@ -29748,7 +29755,14 @@ class BaseContent extends (external_React_default()).PureComponent {
       spocsLoading: this.isSpocsOnDemandExpired
     })) : /*#__PURE__*/external_React_default().createElement(Sections_Sections, null)), /*#__PURE__*/external_React_default().createElement(ConfirmDialog, null), wallpapersEnabled && this.renderWallpaperAttribution()), /*#__PURE__*/external_React_default().createElement("aside", null, this.props.Notifications?.showNotifications && /*#__PURE__*/external_React_default().createElement(ErrorBoundary, null, /*#__PURE__*/external_React_default().createElement(Notifications_Notifications, {
       dispatch: this.props.dispatch
-    }))), mayShowTopicSelection && pocketEnabled && /*#__PURE__*/external_React_default().createElement(TopicSelection, {
+    }))), /*#__PURE__*/external_React_default().createElement("button", {
+      className: "nox-settings-button",
+      onClick: this.openNoxVisualSettings,
+      "data-l10n-id": "nox-settings-button-tooltip",
+      title: "Nox Visual Settings"
+    }, /*#__PURE__*/external_React_default().createElement("span", {
+      className: "nox-settings-icon"
+    }, "\u2699")), mayShowTopicSelection && pocketEnabled && /*#__PURE__*/external_React_default().createElement(TopicSelection, {
       supportUrl: supportUrl
     })), /*#__PURE__*/external_React_default().createElement("menu", {
       className: "personalizeButtonWrapper"

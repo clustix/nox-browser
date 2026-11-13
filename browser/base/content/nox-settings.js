@@ -60,7 +60,7 @@ var gNoxSettings = {
     );
     root.style.setProperty(
       "--nox-surface-alpha",
-      (0.4 + (100 - transparency) / 100 * 0.6).toFixed(2)
+      (0.25 + (100 - transparency) / 100 * 0.65).toFixed(2)
     );
 
     const glass = Services.prefs.getCharPref(PREF_GLASS, "medium");
